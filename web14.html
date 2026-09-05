@@ -1,0 +1,1678 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Martin E-Games | BeatShift &amp; Labyrint VR</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&amp;family=Rajdhani:wght@300;500;700&amp;display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-blue: #00ffff;
+            --neon-pink: #ff00ff;
+            --neon-yellow: #ffff00;
+            --bg-dark: #080808;
+            --glass: rgba(255, 255, 255, 0.05);
+            --sidebar-width: 250px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #e0e0e0;
+            font-family: 'Rajdhani', sans-serif;
+            margin: 0;
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: rgba(0, 0, 0, 0.9);
+            border-right: 2px solid var(--neon-blue);
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            padding: 20px 0;
+            z-index: 1001;
+            overflow-y: auto;
+        }
+
+        .sidebar-title {
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            color: white;
+            font-size: 18px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px var(--neon-blue);
+            letter-spacing: 3px;
+        }
+
+        /* --- ODDĚLOVAČE A NADPISY V MENU --- */
+        .menu-divider {
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin: 8px 20px;
+        }
+
+        .menu-section-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            color: #aaa;
+            letter-spacing: 2px;
+            padding: 12px 20px 4px 20px;
+            text-transform: uppercase;
+            pointer-events: none;
+            user-select: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 4px;
+        }
+
+        .side-btn {
+            background: transparent;
+            border: none;
+            border-left: 4px solid transparent;
+            color: #888;
+            padding: 12px 20px;
+            text-align: left;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+        }
+
+        .side-btn:hover {
+            background: var(--glass);
+            color: #fff;
+        }
+
+        .side-btn.active {
+            background: var(--glass);
+            color: var(--neon-blue);
+            border-left: 4px solid var(--neon-blue);
+        }
+
+        /* --- HLAVNÍ OBSAH --- */
+        .main-wrapper {
+            margin-left: var(--sidebar-width);
+            width: 100%;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .game-page {
+            display: none;
+        }
+        .game-page.active {
+            display: block;
+        }
+
+        /* --- JAZYKOVÝ PŘEPÍNAČ --- */
+        .language-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1002;
+            display: flex;
+            gap: 10px;
+            background: rgba(0,0,0,0.6);
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--neon-blue);
+        }
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #aaa;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 2px 10px;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+        .lang-btn.active {
+            color: var(--neon-blue);
+            background: rgba(0,255,255,0.1);
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+        .lang-btn:hover {
+            color: white;
+        }
+
+        /* --- HEADER & NAVIGATION --- */
+        header {
+            padding: 30px 20px 40px 20px;
+            text-align: center;
+            background: linear-gradient(to bottom, #111, var(--bg-dark));
+            position: relative;
+        }
+
+        .header-top-bar {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 20px;
+            position: relative;
+        }
+
+        .main-logo {
+            height: 80px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2em, 8vw, 4em);
+            margin: 0;
+            color: white;
+            text-shadow: 0 0 20px var(--neon-blue);
+            letter-spacing: 5px;
+            margin-top: 10px;
+        }
+
+        /* --- SPECIÁLNÍ ÚVODNÍ NADPIS (větší) --- */
+        .home-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5em, 10vw, 4.5em);
+            margin: 0;
+            color: white;
+            text-shadow: 0 0 30px var(--neon-blue);
+            letter-spacing: 5px;
+            line-height: 1.2;
+        }
+
+        .slogan {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-blue);
+            letter-spacing: 2px;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        nav button {
+            background: transparent;
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 10px 25px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+            border-radius: 5px;
+        }
+
+        nav button.active,
+        nav button:hover {
+            background: var(--neon-blue);
+            color: black;
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px 40px 20px;
+        }
+
+        /* --- SEKCE --- */
+        section {
+            display: none;
+            animation: fadeIn 0.5s ease forwards;
+        }
+        section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- ÚVODNÍ STRÁNKA (HOME) --- */
+        .home-content {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--glass);
+            padding: 40px 50px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            text-align: left;
+        }
+        .home-content p {
+            font-size: 1.1em;
+            margin: 16px 0;
+            color: #ddd;
+        }
+        .home-content .highlight {
+            color: var(--neon-pink);
+            font-weight: bold;
+        }
+
+        /* --- TIPY A TRIKY --- */
+        .tips-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .tip-card {
+            background: var(--glass);
+            padding: 25px 30px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--neon-blue);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-left-width: 4px;
+        }
+        .tip-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-blue);
+            font-size: 20px;
+            margin-top: 0;
+        }
+        .tip-card ul, .tip-card p {
+            color: #ccc;
+            margin: 6px 0;
+        }
+        .tip-card ul {
+            padding-left: 20px;
+        }
+        .tip-card ul li {
+            margin-bottom: 4px;
+        }
+        .tip-card strong {
+            color: #fff;
+        }
+        .tip-card .warning {
+            color: var(--neon-pink);
+        }
+
+        /* --- LEADERBOARDS --- */
+        .leaderboards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .board-card {
+            background: var(--glass);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .board-card h2 {
+            font-family: 'Orbitron', sans-serif;
+            text-align: center;
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid;
+            font-size: 20px;
+        }
+
+        .easy h2 {
+            color: var(--neon-blue);
+            border-color: var(--neon-blue);
+        }
+        .medium h2 {
+            color: var(--neon-yellow);
+            border-color: var(--neon-yellow);
+        }
+        .hard h2 {
+            color: var(--neon-pink);
+            border-color: var(--neon-pink);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        td {
+            padding: 12px 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .top-row {
+            font-size: 1.3em;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .rank-cell {
+            width: 60px;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .score-cell {
+            text-align: right;
+            color: #00ff00;
+            font-weight: bold;
+        }
+        .track-info {
+            display: block;
+            font-size: 0.7em;
+            color: #888;
+            font-weight: normal;
+        }
+        .gap-row {
+            height: 15px;
+        }
+
+        /* --- INFO SECTION --- */
+        .info-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+            text-align: left;
+        }
+
+        .info-text h3 {
+            color: var(--neon-blue);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 20px;
+        }
+
+        .game-icon-small {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 20px var(--neon-blue);
+            display: block;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #004400;
+            color: #00ff00;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border: 1px solid #00ff00;
+            font-size: 14px;
+        }
+
+        .download-box {
+            text-align: center;
+            padding: 40px;
+            background: var(--glass);
+            border: 2px solid var(--neon-blue);
+            border-radius: 20px;
+            position: sticky;
+            top: 20px;
+        }
+
+        .download-box h2 {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .btn-download {
+            display: inline-block;
+            background: var(--neon-blue);
+            color: black;
+            padding: 20px 40px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5em;
+            text-decoration: none;
+            border-radius: 10px;
+            box-shadow: 0 0 30px var(--neon-blue);
+            transition: 0.3s;
+        }
+
+        .btn-download:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px var(--neon-blue);
+        }
+
+        /* --- MEDIA SECTION & VIDEO --- */
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .media-grid img {
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid var(--neon-blue);
+            cursor: zoom-in;
+            transition: 0.3s;
+        }
+
+        .media-grid img:hover {
+            transform: scale(1.03);
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 15px var(--neon-pink);
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            margin-top: 20px;
+            border: 2px solid var(--neon-blue);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .description-box,
+        .privacy-box {
+            margin-top: 40px;
+            padding: 20px;
+            background: var(--glass);
+            border-radius: 15px;
+            border-left: 4px solid var(--neon-blue);
+        }
+
+        .description-box ul {
+            color: #ccc;
+            padding-left: 20px;
+        }
+        .description-box ul li {
+            margin-bottom: 4px;
+        }
+
+        .privacy-box {
+            border-left-color: var(--neon-pink);
+            font-size: 0.9em;
+            color: #ccc;
+        }
+
+        .privacy-box p {
+            margin: 6px 0;
+        }
+
+        /* --- ABOUT PAGE --- */
+        .about-text {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--glass);
+            padding: 30px 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .about-text h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-blue);
+            margin-top: 30px;
+            font-size: 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 8px;
+        }
+        .about-text h2:first-of-type {
+            margin-top: 0;
+        }
+        .about-text p {
+            margin: 12px 0;
+        }
+        .about-text .highlight {
+            color: var(--neon-pink);
+            font-weight: bold;
+        }
+
+        /* --- MODAL --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            padding-top: 50px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            cursor: zoom-out;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 85vh;
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 30px var(--neon-blue);
+            border-radius: 10px;
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.7);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 800px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                flex-direction: row;
+                justify-content: center;
+                flex-wrap: wrap;
+                padding: 10px 0;
+                border-right: none;
+                border-bottom: 2px solid var(--neon-blue);
+                overflow-y: visible;
+            }
+            .sidebar-title {
+                display: none;
+            }
+            .menu-divider {
+                display: none;
+            }
+            .menu-section-label {
+                display: none;
+            }
+            .side-btn {
+                padding: 10px 15px;
+                font-size: 12px;
+                border-left: none;
+                border-bottom: 3px solid transparent;
+                width: auto;
+            }
+            .side-btn.active {
+                border-left: none;
+                border-bottom: 3px solid var(--neon-blue);
+            }
+            .main-wrapper {
+                margin-left: 0;
+            }
+            .language-switcher {
+                position: relative;
+                top: auto;
+                right: auto;
+                display: flex;
+                justify-content: center;
+                margin: 10px auto 0;
+                width: fit-content;
+            }
+            .header-top-bar {
+                flex-direction: column;
+            }
+            .info-content {
+                grid-template-columns: 1fr;
+            }
+            .media-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .download-box {
+                position: static;
+            }
+            header {
+                padding: 20px 10px 30px 10px;
+            }
+            nav button {
+                padding: 8px 15px;
+                font-size: 12px;
+            }
+            .about-text {
+                padding: 20px;
+            }
+            .home-content {
+                padding: 25px;
+            }
+            .tip-card {
+                padding: 18px 20px;
+            }
+            .home-title {
+                font-size: clamp(2em, 8vw, 3em);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .media-grid {
+                grid-template-columns: 1fr;
+            }
+            .leaderboards-grid {
+                grid-template-columns: 1fr;
+            }
+            .side-btn {
+                font-size: 10px;
+                padding: 8px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================
+    SIDEBAR
+    ========================================== -->
+    <div class="sidebar">
+        <div class="sidebar-title" data-key="menu-title">🎮 MENU</div>
+
+        <!-- DOMŮ -->
+        <button class="side-btn" onclick="switchGame('home')" id="side-btn-home" data-key="menu-home">🏠 DOMŮ</button>
+
+        <hr class="menu-divider">
+
+        <!-- SEKCE: HRY -->
+        <div class="menu-section-label" data-key="menu-section-games">🎮 HRY</div>
+        <button class="side-btn" onclick="switchGame('beatshift')" id="side-btn-beatshift" data-key="menu-beatshift">🎵 BEATSHIFT VR</button>
+        <button class="side-btn" onclick="switchGame('labyrinth')" id="side-btn-labyrinth" data-key="menu-labyrinth">🧩 LABYRINT 3D VR</button>
+
+        <hr class="menu-divider">
+
+        <!-- SEKCE: INFORMACE -->
+        <div class="menu-section-label" data-key="menu-section-info">ℹ️ INFORMACE</div>
+        <button class="side-btn" onclick="switchGame('about')" id="side-btn-about" data-key="menu-about">👤 O MNĚ</button>
+        <button class="side-btn" onclick="switchGame('tips')" id="side-btn-tips" data-key="menu-tips">💡 TIPY A TRIKY</button>
+    </div>
+
+    <!-- ==========================================
+    HLAVNÍ OBSAH
+    ========================================== -->
+    <div class="main-wrapper">
+
+        <!-- JAZYKOVÝ PŘEPÍNAČ -->
+        <div class="language-switcher">
+            <button class="lang-btn active" data-lang="cs" onclick="setLanguage('cs')">🇨🇿 ČESKY</button>
+            <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">🇬🇧 ENGLISH</button>
+        </div>
+
+        <!-- ==========================================
+        STRÁNKA: DOMŮ (ÚVODNÍ)
+        ========================================== -->
+        <div id="game-home" class="game-page active">
+            <header>
+                <div class="header-top-bar">
+                    <img src="logo.jpg" alt="Logo" class="main-logo">
+                </div>
+                <h1 class="home-title" data-key="home-title">Vítej na mé stránce<br>s Android hrami</h1>
+            </header>
+
+            <div class="container">
+                <section id="home-section" class="active">
+                    <div class="home-content">
+                        <p data-key="home-p1">Všechny hry a projekty, které tady najdeš, vytvářím sám. Zaměřuji se na hry psané převážně v nativním kódu, abych dosáhl maximální optimalizace a plynulého chodu i na starších telefonech.</p>
+                        <p data-key="home-p2">Kromě her sem postupně přidávám i užitečné návody – například <strong>jak si správně nastavit VR Box</strong>, aby zážitek z virtuální reality byl co nejlepší, nebo <strong>jak propojit Bluetooth ovladač pro Labyrint ve VR</strong>.</p>
+                        <p data-key="home-p3">V levém menu si jednoduše vyber – rozklikni si libovolnou hru a prohlédni si žebříčky, stažení nebo detailní informace. Sekce <strong>"Tipy a triky"</strong> je připravená pro všechny, kdo chtějí z VR zařízení vytěžit maximum – od nastavení ostření až po opravu opotřebované pěnové podložky.</p>
+                        <p data-key="home-p4">Pokud se chceš dozvědět víc o mně, klikni na <strong>"O mně"</strong>.</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- ==========================================
+        STRÁNKA: O MNĚ
+        ========================================== -->
+        <div id="game-about" class="game-page">
+            <header>
+                <div class="header-top-bar">
+                    <img src="logo.jpg" alt="Logo" class="main-logo">
+                </div>
+                <h1 data-key="about-title">O mně</h1>
+                <div class="slogan" data-key="about-slogan">Kdo jsem a proč tvořím</div>
+            </header>
+
+            <div class="container">
+                <section id="about-section" class="active">
+                    <div class="about-text">
+                        <h2 data-key="about-who-title">Kdo jsem</h2>
+                        <p data-key="about-who-text">Jsem nezávislý tvůrce, který vytváří originální hry pro Android. Nejsem firma ani tým lidí — jen člověk, kterého baví tvořit vlastní projekty.</p>
+
+                        <h2 data-key="about-why-title">Proč tvořím</h2>
+                        <p data-key="about-why-text">Tvorba her je pro mě způsob, jak spojit kreativitu, techniku a zábavu. Baví mě, když se nápad promění v něco, co si lidé stáhnou, zahrají a užijí.</p>
+
+                        <h2 data-key="about-how-title">Jak tvořím</h2>
+                        <p data-key="about-how-text">Hry tvořím po práci ve svém volném čase. Každý projekt vzniká postupně — od prvního nápadu, přes grafiku, až po samotné programování.</p>
+
+                        <h2 data-key="about-what-title">Co tvořím</h2>
+                        <p data-key="about-what-text">Zaměřuji se na menší, originální projekty, které jsou snadné na ovládání a dostupné každému. Moje hry neobsahují skryté funkce, sledování ani podvodné prvky.</p>
+
+                        <h2 data-key="about-firstgame-title">Moje první hra</h2>
+                        <p data-key="about-firstgame-text">Moje úplně první hra, kterou jsem vytvořil od nuly, se jmenuje <strong>Labyrun</strong> a je dostupná na Google Play. Je to důkaz, že za projekty stojí skutečný tvůrce, ne anonymní podvodník. Labyrun je jednoduchá, čistá a bezpečná hra — první krok do světa mobilního vývoje.</p>
+
+                        <h2 data-key="about-why-not-play-title">Proč už nepublikuji na Google Play</h2>
+                        <p data-key="about-why-not-play-text">Moje hry na Google Play nebyly vidět — ztrácely se mezi tisíci jiných projektů a téměř nikdo je nenašel. Proto jsem se rozhodl jít vlastní cestou a budovat místo, kde moje hry opravdu dostanou prostor. Publikuji je na své vlastní webové stránce, případně na platformách jako itch.io nebo APKPure.</p>
+
+                        <h2 data-key="about-vr-title">Proč tvořím VR hry</h2>
+                        <p data-key="about-vr-text">Kvalitních a zároveň free VR her pro Android je velmi málo — a já to chci změnit. VR Box je levný způsob, jak si kdokoli může vyzkoušet virtuální realitu doma, aniž by musel investovat tisíce do drahých VR headsetů. Chci přiblížit svět VR i lidem, kteří si nemohou dovolit drahé zařízení, a ukázat, že i jednoduché mobilní VR může být zábavné, dostupné a bezpečné.</p>
+
+                        <h2 data-key="about-not-hacker-title">Nejsem hacker</h2>
+                        <p data-key="about-not-hacker-text">Nepíšu škodlivý kód, nesbírám data a nesnažím se hráče nijak manipulovat. Moje hry neobsahují malware, podvodné prvky ani nic, co by poškozovalo zařízení. Jsem tvůrce, ne hacker — a bezpečnost hráčů je pro mě zásadní.</p>
+
+                        <h2 data-key="about-safety-title">Zásady bezpečnosti</h2>
+                        <p data-key="about-safety-text">Každá moje hra je navržena tak, aby byla čistá, bezpečná a férová. Neukládám citlivé informace, nevyžaduji osobní údaje a nepoužívám žádné sledovací systémy.</p>
+
+                        <h2 data-key="about-contact-title">Kontakt</h2>
+                        <p data-key="about-contact-text">Pokud máš dotaz nebo chceš nahlásit problém, můžeš mi napsat na: <strong class="highlight">martinegames@centrum.cz</strong></p>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- ==========================================
+        STRÁNKA: BEATSHIFT VR
+        ========================================== -->
+        <div id="game-beatshift" class="game-page">
+
+            <header>
+                <div class="header-top-bar">
+                    <img src="logo.jpg" alt="Logo BeatShift" class="main-logo">
+                </div>
+                <h1 data-key="beatshift-title">BeatShift VR</h1>
+                <div class="slogan" data-key="beatshift-slogan">Tvoje hudba, Tvoje hra</div>
+                <nav>
+                    <button onclick="showSection('leaderboards-beatshift')" id="btn-leaderboards-beatshift" class="active" data-key="beatshift-nav-leaderboards">SÍŇ SLÁVY</button>
+                    <button onclick="showSection('info-beatshift')" id="btn-info-beatshift" data-key="beatshift-nav-info">O HŘE / STÁHNOUT</button>
+                </nav>
+            </header>
+
+            <div class="container">
+
+                <!-- SÍŇ SLÁVY -->
+                <section id="leaderboards-beatshift" class="active">
+                    <div class="leaderboards-grid">
+                        <div class="board-card easy">
+                            <h2 data-key="beatshift-diff-easy">EASY</h2>
+                            <table><tbody id="data-easy"><tr class="top-row"><td class="rank-cell">1. 🥇</td><td><strong>Martin</strong><span class="track-info">Artist-Session1_Track14</span></td><td class="score-cell">1&nbsp;010</td></tr><tr class="top-row"><td class="rank-cell">2. 🥈</td><td><strong>Martin</strong><span class="track-info">Artist-Session1_Track14</span></td><td class="score-cell">1&nbsp;000</td></tr><tr class="top-row"><td class="rank-cell">3. 🥉</td><td><strong>TestHrac</strong><span class="track-info">TestSong</span></td><td class="score-cell">999</td></tr><tr class="gap-row"><td colspan="3"></td></tr><tr class=""><td class="rank-cell">4.</td><td><strong>TestHrac</strong><span class="track-info">TestSong</span></td><td class="score-cell">999</td></tr><tr class=""><td class="rank-cell">5.</td><td><strong>TestHrac</strong><span class="track-info">TestSong</span></td><td class="score-cell">999</td></tr><tr class=""><td class="rank-cell">6.</td><td><strong>TestHrac</strong><span class="track-info">TestSong</span></td><td class="score-cell">999</td></tr><tr class=""><td class="rank-cell">7.</td><td><strong>TestHrac</strong><span class="track-info">TestSong</span></td><td class="score-cell">999</td></tr><tr class=""><td class="rank-cell">8.</td><td><strong>TestHrac</strong><span class="track-info">TestSong</span></td><td class="score-cell">999</td></tr><tr class=""><td class="rank-cell">9.</td><td><strong>TestHrac</strong><span class="track-info">TestSong</span></td><td class="score-cell">999</td></tr><tr class=""><td class="rank-cell">10.</td><td><strong>TestHrac</strong><span class="track-info">TestSong</span></td><td class="score-cell">999</td></tr><tr class=""><td class="rank-cell">11.</td><td><strong>TestHrac</strong><span class="track-info">TestSong</span></td><td class="score-cell">999</td></tr><tr class=""><td class="rank-cell">12.</td><td><strong>TestHrac</strong><span class="track-info">TestSong</span></td><td class="score-cell">999</td></tr><tr class=""><td class="rank-cell">13.</td><td><strong>Martin</strong><span class="track-info">Vzpomeneš si</span></td><td class="score-cell">0</td></tr></tbody></table>
+                        </div>
+                        <div class="board-card medium">
+                            <h2 data-key="beatshift-diff-medium">NORMAL</h2>
+                            <table><tbody id="data-med"><tr class="top-row"><td class="rank-cell">1. 🥇</td><td><strong>m</strong><span class="track-info">20 Scooter - Weekend</span></td><td class="score-cell">4&nbsp;360</td></tr><tr class="top-row"><td class="rank-cell">2. 🥈</td><td><strong>Martin</strong><span class="track-info">Vzorná_Holka</span></td><td class="score-cell">3&nbsp;830</td></tr><tr class="top-row"><td class="rank-cell">3. 🥉</td><td><strong>m</strong><span class="track-info">yt1s.com - The Offspring  Pretty Fly For A White Guy Official Music Video</span></td><td class="score-cell">2&nbsp;500</td></tr><tr class="gap-row"><td colspan="3"></td></tr><tr class=""><td class="rank-cell">4.</td><td><strong>m</strong><span class="track-info">yt1s.com - The Offspring  Pretty Fly For A White Guy Official Music Video</span></td><td class="score-cell">2&nbsp;500</td></tr><tr class=""><td class="rank-cell">5.</td><td><strong>Martin</strong><span class="track-info">ukazka</span></td><td class="score-cell">130</td></tr><tr class=""><td class="rank-cell">6.</td><td><strong>Martin</strong><span class="track-info">ukazka</span></td><td class="score-cell">130</td></tr><tr class=""><td class="rank-cell">7.</td><td><strong>Martin</strong><span class="track-info">ukazka</span></td><td class="score-cell">130</td></tr><tr class=""><td class="rank-cell">8.</td><td><strong>Martin</strong><span class="track-info">ukazka</span></td><td class="score-cell">130</td></tr></tbody></table>
+                        </div>
+                        <div class="board-card hard">
+                            <h2 data-key="beatshift-diff-hard">HARD</h2>
+                            <table><tbody id="data-hard"><tr class="top-row"><td class="rank-cell">1. 🥇</td><td><strong>Martin</strong><span class="track-info">Vzpomeneš si</span></td><td class="score-cell">3&nbsp;160</td></tr><tr class="top-row"><td class="rank-cell">2. 🥈</td><td><strong>Martin</strong><span class="track-info">Vzpomeneš si</span></td><td class="score-cell">3&nbsp;160</td></tr><tr class="top-row"><td class="rank-cell">3. 🥉</td><td><strong>Martin</strong><span class="track-info">Vzpomeneš si</span></td><td class="score-cell">3&nbsp;160</td></tr><tr class="gap-row"><td colspan="3"></td></tr></tbody></table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- O HŘE -->
+                <section id="info-beatshift">
+                    <div class="info-content">
+                        <div class="info-text">
+                            <img src="ikona.jpg" alt="BeatShift Ikona" class="game-icon-small">
+
+                            <div class="badge" data-key="beatshift-antivirus-badge">🛡️ PROVĚŘENO ANTIVIREM - 100% BEZPEČNÉ</div>
+
+                            <h3 data-key="beatshift-tech-title">Technické specifikace</h3>
+                            <p><strong data-key="beatshift-tech-os">Podporované OS:</strong> <span data-key="beatshift-tech-os-text">Android 7.0 (Nougat) až Android 16.</span></p>
+                            <p><strong data-key="beatshift-tech-control">Ovládání:</strong> <span data-key="beatshift-tech-control-text">Hra využívá Gyroskop vašeho telefonu.</span></p>
+                            <p><strong data-key="beatshift-tech-modes">Režimy:</strong> <span data-key="beatshift-tech-modes-text">Plná podpora VR (Cardboard) i klasického režimu bez brýlí.</span></p>
+                            <p><strong data-key="beatshift-tech-langs">Podporované jazyky:</strong> <span data-key="beatshift-tech-langs-text">Čeština, Angličtina, Němčina, Portugalština, Španělština, Slovenština, Polština, Ukrajinština, Ruština.</span></p>
+
+                            <h3 data-key="beatshift-safety-title">Bezpečnost a věk</h3>
+                            <p data-key="beatshift-safety-age">Doporučený věk: 12+ (vzhledem k použití VR technologie a intenzivním vizuálním efektům).</p>
+                            <p data-key="beatshift-safety-virus">Tato aplikace není virus. Neobsahuje žádný škodlivý kód a nevyžaduje přístup k vašim soukromým datům (pouze přístup k hudebním souborům, které si sami vyberete ke hře).</p>
+
+                            <h3 data-key="beatshift-gallery-title">Galerie</h3>
+                            <div class="media-grid">
+                                <img src="screen1.jpg" alt="Screenshot 1" onclick="openImage(this.src)">
+                                <img src="screen2.jpg" alt="Screenshot 2" onclick="openImage(this.src)">
+                                <img src="screen3.jpg" alt="Screenshot 3" onclick="openImage(this.src)">
+                                <img src="screen4.jpg" alt="Screenshot 4" onclick="openImage(this.src)">
+                                <img src="screen5.jpg" alt="Screenshot 5" onclick="openImage(this.src)">
+                                <img src="screen6.jpg" alt="Screenshot 6" onclick="openImage(this.src)">
+                            </div>
+
+                            <div class="description-box">
+                                <h3 data-key="beatshift-desc-title">Popis hry</h3>
+                                <p data-key="beatshift-desc-p1">Beat Shift ti umožní proměnit jakoukoli MP3 skladbu uloženou v telefonu v jedinečnou rytmickou výzvu. Stačí si vybrat píseň, zvolit vizuální styl a hra sama vygeneruje překážky přesně podle rytmu hudby. Každá skladba tak vytvoří úplně nový level.</p>
+                                <p data-key="beatshift-desc-p2">Vyhýbej se nárazům a nech se vtáhnout do světa, kde hudba řídí úplně všechno.</p>
+                            </div>
+
+                            <div class="video-container">
+                                <iframe src="https://www.youtube.com/embed/ZDE_VLOZTE_ID_VIDEA" title="BeatShift VR Gameplay" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="">
+                                </iframe>
+                            </div>
+
+                            <div class="privacy-box">
+                                <h3 style="color: var(--neon-pink);" data-key="beatshift-privacy-title">Ochrana soukromí</h3>
+                                <p><strong data-key="beatshift-priv-1-t">1. SBĚR DAT:</strong> <span data-key="beatshift-priv-1-d">Tato aplikace nesbírá žádné osobní údaje uživatelů (jako e-mail, jméno nebo telefonní číslo).</span></p>
+                                <p><strong data-key="beatshift-priv-2-t">2. PŘEZDÍVKA A SKÓRE:</strong> <span data-key="beatshift-priv-2-d">Pokud se rozhodnete sdílet své skóre, bude vaše zvolená přezdívka a dosažené body odeslány na veřejný žebříček. Tato volba je dobrovolná.</span></p>
+                                <p><strong data-key="beatshift-priv-3-t">3. MULTIMÉDIA:</strong> <span data-key="beatshift-priv-3-d">Aplikace vyžaduje přístup k úložišti pouze pro účely uložení vygenerovaného videa z vaší hry a pro přístup k hudbě, kterou si sami zvolíte ke hraní.</span></p>
+                                <p><strong data-key="beatshift-priv-4-t">4. SENZORY:</strong> <span data-key="beatshift-priv-4-d">Hra využívá gyroskop vašeho zařízení pro sledování pohybu. Tato data nejsou nikde ukládána ani odesílána.</span></p>
+                                <p><strong data-key="beatshift-priv-5-t">5. DOPORUČENÝ VĚK:</strong> <span data-key="beatshift-priv-5-d">Hra je doporučena pro hráče od 12 let. U mladších hráčů se doporučuje dohled dospělé osoby a kratší herní relace z důvodu používání VR technologie.</span></p>
+                                <p><strong data-key="beatshift-priv-6-t">6. KONTAKT:</strong> <span data-key="beatshift-priv-6-d">V případě dotazů mě kontaktujte na martinegames@centrum.cz.</span></p>
+                            </div>
+                        </div>
+
+                        <div class="download-box">
+                            <h2 data-key="beatshift-ready-title">PŘIPRAVEN KE STARTU?</h2>
+                            <p data-key="beatshift-ready-desc">Stáhni si nejnovější verzi přímo od vývojáře.</p>
+                            <br>
+                            <a href="ODKAZ_NA_TVOJE_APK_SOUBOR_BUDE_ZDE" class="btn-download" data-key="beatshift-btn-download">STÁHNOUT APK</a>
+                            <p style="margin-top:20px; font-size:0.8em; color:#888;"><span data-key="beatshift-version-label">Verze</span> 1.0.4 | <span data-key="beatshift-size-label">Velikost</span>: cca 45 MB</p>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+
+        <!-- ==========================================
+        STRÁNKA: LABYRINT 3D/VR
+        ========================================== -->
+        <div id="game-labyrinth" class="game-page">
+
+            <header>
+                <div class="header-top-bar">
+                    <img src="logo.jpg" alt="Logo Labyrint" class="main-logo">
+                </div>
+                <h1 data-key="labyrint-title">Labyrint 3D/VR</h1>
+                <div class="slogan" data-key="labyrint-slogan">Tvůj labyrint. Tvoje cesta.</div>
+                <nav>
+                    <button onclick="showSection('info-labyrinth')" id="btn-info-labyrinth" class="active" data-key="labyrint-nav-info">O HŘE / STÁHNOUT</button>
+                </nav>
+            </header>
+
+            <div class="container">
+
+                <!-- O HŘE -->
+                <section id="info-labyrinth" class="active">
+                    <div class="info-content">
+                        <div class="info-text">
+                            <img src="ikona_labyrint.jpg" alt="Labyrint Ikona" class="game-icon-small">
+
+                            <div class="badge" data-key="labyrint-antivirus-badge">🛡️ PROVĚŘENO ANTIVIREM - 100% BEZPEČNÉ</div>
+
+                            <h3 data-key="labyrint-tech-title">Technické specifikace</h3>
+                            <p><strong data-key="labyrint-tech-os">Podporované OS:</strong> <span data-key="labyrint-tech-os-text">Android 7.0 (Nougat) až Android 16.</span></p>
+                            <p><strong data-key="labyrint-tech-control">Ovládání:</strong> <span data-key="labyrint-tech-control-text">Dotyk (levý/pravý prst) nebo Gamepad pro VR.</span></p>
+                            <p><strong data-key="labyrint-tech-modes">Režimy:</strong> <span data-key="labyrint-tech-modes-text">Závod, Plížení, Hledání pokladů, Multiplayer přes Bluetooth.</span></p>
+                            <p><strong data-key="labyrint-tech-langs">Podporované jazyky:</strong> <span data-key="labyrint-tech-langs-text">Čeština, Angličtina, Němčina, Portugalština, Španělština, Slovenština, Polština, Ukrajinština, Ruština.</span></p>
+
+                            <h3 data-key="labyrint-safety-title">Bezpečnost a věk</h3>
+                            <p data-key="labyrint-safety-age">Doporučený věk: 12+ (vzhledem k použití VR technologie a intenzivním vizuálním efektům).</p>
+                            <p data-key="labyrint-safety-virus">Tato aplikace není virus. Neobsahuje žádný škodlivý kód a nevyžaduje přístup k vašim soukromým datům.</p>
+
+                            <h3 data-key="labyrint-gallery-title">Galerie</h3>
+                            <div class="media-grid">
+                                <img src="screen1_labyrint.jpg" alt="Screenshot 1" onclick="openImage(this.src)">
+                                <img src="screen2_labyrint.jpg" alt="Screenshot 2" onclick="openImage(this.src)">
+                                <img src="screen3_labyrint.jpg" alt="Screenshot 3" onclick="openImage(this.src)">
+                                <img src="screen4_labyrint.jpg" alt="Screenshot 4" onclick="openImage(this.src)">
+                                <img src="screen5_labyrint.jpg" alt="Screenshot 5" onclick="openImage(this.src)">
+                                <img src="screen6_labyrint.jpg" alt="Screenshot 6" onclick="openImage(this.src)">
+                            </div>
+
+                            <div class="description-box">
+                                <h3 data-key="labyrint-desc-title">Popis hry</h3>
+                                <p data-key="labyrint-desc-p1">Vstup do Labyrintu 3D/VR, kde každý krok může být tvůj poslední. Čekají tě temné chodby, nepřátelé, poklady a závod s časem.</p>
+                                <p data-key="labyrint-desc-p2">Hraj sám, nebo se spoj s kamarádem přes Bluetooth multiplayer – každý na svém telefonu, ve VR i bez VR.</p>
+                                <p data-key="labyrint-desc-p3">Vyber si jeden z režimů:</p>
+                                <ul>
+                                    <li><strong>Závod na čas</strong> – sprint skrz bludiště.</li>
+                                    <li><strong>Plíživka</strong> – tichý postup mezi nepřáteli.</li>
+                                    <li><strong>Volná hra</strong> – relaxační průzkum.</li>
+                                    <li><strong>Hledač pokladu</strong> – sbírej diamanty a unikni.</li>
+                                </ul>
+                                <p data-key="labyrint-desc-p4">VR ti dá maximální atmosféru, klasické ovládání zase pohodlí. Labyrint čeká – troufneš si?</p>
+                            </div>
+
+                            <div class="video-container">
+                                <iframe src="https://www.youtube.com/embed/ZDE_VLOZTE_ID_VIDEA_LABYRINT" title="Labyrint 3D/VR Gameplay" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="">
+                                </iframe>
+                            </div>
+
+                            <div class="privacy-box">
+                                <h3 style="color: var(--neon-pink);" data-key="labyrint-privacy-title">Ochrana soukromí</h3>
+                                <p><strong data-key="labyrint-priv-1-t">1. SBĚR DAT:</strong> <span data-key="labyrint-priv-1-d">Tato aplikace nesbírá žádné osobní údaje uživatelů (jako e-mail, jméno nebo telefonní číslo).</span></p>
+                                <p><strong data-key="labyrint-priv-2-t">2. REKLAMY:</strong> <span data-key="labyrint-priv-2-d">Aplikace používá reklamní síť Start.io, která může sbírat anonymní identifikátor zařízení pro cílení reklam.</span></p>
+                                <p><strong data-key="labyrint-priv-3-t">3. BLUETOOTH:</strong> <span data-key="labyrint-priv-3-d">Bluetooth se používá výhradně pro multiplayer. Žádná data nejsou odesílána na servery.</span></p>
+                                <p><strong data-key="labyrint-priv-4-t">4. SENZORY:</strong> <span data-key="labyrint-priv-4-d">Hra využívá gyroskop pro VR režim. Tato data nejsou nikde ukládána ani odesílána.</span></p>
+                                <p><strong data-key="labyrint-priv-5-t">5. PLATBY:</strong> <span data-key="labyrint-priv-5-d">Při nákupu Premium verze jsou platební údaje zpracovávány přes Stripe. My je neukládáme.</span></p>
+                                <p><strong data-key="labyrint-priv-6-t">6. DOPORUČENÝ VĚK:</strong> <span data-key="labyrint-priv-6-d">Hra je doporučena pro hráče od 12 let. U mladších hráčů se doporučuje dohled dospělé osoby.</span></p>
+                                <p><strong data-key="labyrint-priv-7-t">7. KONTAKT:</strong> <span data-key="labyrint-priv-7-d">V případě dotazů mě kontaktujte na martinegames@centrum.cz.</span></p>
+                            </div>
+                        </div>
+
+                        <div class="download-box">
+                            <h2 data-key="labyrint-ready-title">PŘIPRAVEN KE STARTU?</h2>
+                            <p data-key="labyrint-ready-desc">Stáhni si nejnovější verzi přímo od vývojáře.</p>
+                            <br>
+                            <a href="ODKAZ_NA_APK_LABYRINT" class="btn-download" data-key="labyrint-btn-download">STÁHNOUT APK</a>
+                            <p style="margin-top:20px; font-size:0.8em; color:#888;"><span data-key="labyrint-version-label">Verze</span> 1.0.0 | <span data-key="labyrint-size-label">Velikost</span>: cca 35 MB</p>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+
+        <!-- ==========================================
+        STRÁNKA: TIPY A TRIKY
+        ========================================== -->
+        <div id="game-tips" class="game-page">
+
+            <header>
+                <div class="header-top-bar">
+                    <img src="logo.jpg" alt="Logo" class="main-logo">
+                </div>
+                <h1 data-key="tips-title">💡 Tipy a triky</h1>
+                <div class="slogan" data-key="tips-slogan">Praktické rady pro lepší herní zážitek</div>
+            </header>
+
+            <div class="container">
+                <section id="tips-section" class="active">
+                    <div class="tips-content">
+
+                        <!-- TIP 1 -->
+                        <div class="tip-card">
+                            <h3 data-key="tips-1-title">1. Co dělat, když VR Box nejde zaostřit a obraz je stále rozmazaný</h3>
+                            <p><strong data-key="tips-1-step1">1. Zkontrolujte základní nastavení</strong></p>
+                            <ul>
+                                <li data-key="tips-1-step1a">Posuňte čočky na šířku vašich očí (IPD) – většina VR Boxů má na to buď <strong>kolečko</strong> nebo <strong>posuvnou páčku</strong>. Některé starší modely mají pevnou pozici a tam je to složitější.</li>
+                                <li data-key="tips-1-step1b">Pokud má váš VR Box kolečko na ostření: otáčejte jím, dokud nenajdete nejostřejší bod.</li>
+                                <li data-key="tips-1-step1c">Pokud má váš VR Box posuvnou páčku: zkuste ji posouvat dopředu/dozadu, dokud nenajdete ostrý obraz.</li>
+                            </ul>
+                            <p><strong data-key="tips-1-step2">2. Pokud to nestačí, přidejte distanční vrstvu</strong></p>
+                            <ul>
+                                <li data-key="tips-1-step2a">Někdy je problém v tom, že máte obličej příliš blízko k čočkám.</li>
+                                <li data-key="tips-1-step2b">Řešení: vystřihněte novou pěnovou výplň podle tvaru VR Boxu. Můžete použít:
+                                    <ul>
+                                        <li data-key="tips-1-step2c"><strong>Novou pěnu</strong> – koupit v hobby marketu, vystřihnout podle šablony.</li>
+                                        <li data-key="tips-1-step2d"><strong>Starý pěnový obal</strong> – z krabice od elektroniky.</li>
+                                        <li data-key="tips-1-step2e"><strong>Látku složenou do vrstev</strong> – jako provizorní řešení.</li>
+                                    </ul>
+                                </li>
+                                <li data-key="tips-1-step2f">Nalepte ji na stávající pěnu (nebo na její místo) tak, aby přidala <strong>1–2 cm navíc</strong>.</li>
+                                <li data-key="tips-1-step2g">Tím se vaše oči dostanou do správné vzdálenosti od čoček a obraz se výrazně zlepší.</li>
+                            </ul>
+                            <p><strong data-key="tips-1-step3">3. Materiály, které NEPOUŽÍVAT</strong></p>
+                            <ul>
+                                <li data-key="tips-1-step3a"><span class="warning">Pěna s velkými bublinami</span> – propouští světlo dovnitř a kazí atmosféru (všude vidíte okraje).</li>
+                            </ul>
+                        </div>
+
+                        <!-- TIP 2 -->
+                        <div class="tip-card">
+                            <h3 data-key="tips-2-title">2. Bluetooth ovladač pro Labyrint 3D/VR</h3>
+                            <p data-key="tips-2-p1">Pokud hrajete Labyrint ve VR režimu, telefon je zasunutý v brýlích a dotyk na displej nefunguje. <strong>K pohybu v labyrintu proto potřebujete Bluetooth ovladač.</strong></p>
+                            <ul>
+                                <li data-key="tips-2-li1">Stačí obyčejný Bluetooth gamepad nebo joystick.</li>
+                                <li data-key="tips-2-li2">Ovladač spárujte s telefonem (přes Nastavení → Bluetooth).</li>
+                                <li data-key="tips-2-li3"><strong>Hra vás upozorní</strong>, že ve VR režimu je ovladač potřeba.</li>
+                            </ul>
+                            <p data-key="tips-2-p2"><strong>Nepíšu konkrétní tlačítka, protože každý ovladač je jiný</strong> – levný gamepad z AliExpressu má jiné mapování než ovladač od Xboxu. Hra si všechno načte sama.</p>
+                            <p data-key="tips-2-p3"><strong>Stačí si vyzkoušet tlačítka na ovladači a zjistit, které z nich reaguje na co</strong> – pohyb, interakce atd.</p>
+                        </div>
+
+                        <!-- TIP 3 -->
+                        <div class="tip-card">
+                            <h3 data-key="tips-3-title">3. Labyrint – minimapa a orientace ve VR</h3>
+                            <ul>
+                                <li data-key="tips-3-li1"><strong>V režimu bez VR</strong> máte k dispozici <strong>minimapu</strong>, která vám pomáhá orientovat se v labyrintu.</li>
+                                <li data-key="tips-3-li2"><strong>Ve VR režimu</strong> by minimapa rušila a kazila ponor do hry. Proto je ve VR nahrazena <strong>označením cesty na zemi</strong>.</li>
+                                <li data-key="tips-3-li3">Pokud ve VR chcete znát směr, <strong>vyzkoušejte tlačítka na ovladači</strong> – jedno z nich aktivuje označení cesty přímo na zemi před vámi.</li>
+                            </ul>
+                        </div>
+
+                        <!-- TIP 4 -->
+                        <div class="tip-card">
+                            <h3 data-key="tips-4-title">4. Čištění čoček – na co si dát pozor</h3>
+                            <p data-key="tips-4-p1">VR Box používá <strong>plastové čočky</strong>, které se snadno poškrábou.</p>
+                            <ul>
+                                <li data-key="tips-4-li1"><span class="warning">Nikdy nepoužívejte suchý hadřík</span> – prachové částice poškrábou povrch.</li>
+                                <li data-key="tips-4-li2">Používejte <strong>mikrovláknový hadřík</strong> (na brýle).</li>
+                                <li data-key="tips-4-li3"><strong>Jemnými krouživými pohyby</strong> čistěte.</li>
+                                <li data-key="tips-4-li4">Pokud jsou čočky mastné, hadřík <strong>lehce navlhčete destilovanou vodou</strong>. Nikdy nepoužívejte alkohol ani čisticí prostředky – zničily by povrchovou úpravu.</li>
+                            </ul>
+                        </div>
+
+                        <!-- TIP 5 -->
+                        <div class="tip-card">
+                            <h3 data-key="tips-5-title">5. Proč je obraz v VR Boxu méně ostrý než v drahých VR heads­etech</h3>
+                            <ul>
+                                <li data-key="tips-5-li1">VR Box používá <strong>plastové čočky</strong>, drahé VR headsety používají <strong>skleněné s antireflexní vrstvou</strong>.</li>
+                                <li data-key="tips-5-li2">To je prostě daň za nízkou cenu.</li>
+                                <li data-key="tips-5-li3">Ale i s VR Boxem se dá užít spousta zábavy, když si ho správně nastavíte podle <strong>mých tipů</strong>.</li>
+                            </ul>
+                        </div>
+
+                        <!-- TIP 6 -->
+                        <div class="tip-card">
+                            <h3 data-key="tips-6-title">6. Generování videa v BeatShift – proč to nefunguje na všech telefonech</h3>
+                            <p data-key="tips-6-p1">BeatShift umí po dohrání levelu vygenerovat video z vaší hry. Je to skvělá funkce pro sdílení vašich výkonů s přáteli.</p>
+                            <p><strong data-key="tips-6-why-title">Proč ale nefunguje na všech telefonech?</strong></p>
+                            <ul>
+                                <li data-key="tips-6-why-li1">Generování videa je <strong>velmi náročný proces</strong> – vyžaduje hodně výkonu procesoru a grafického čipu.</li>
+                                <li data-key="tips-6-why-li2">Na trhu jsou stovky různých modelů telefonů s různým výkonem. Není možné, aby generování videa fungovalo na každém z nich.</li>
+                            </ul>
+                            <p><strong data-key="tips-6-how-title">Jak to hra řeší?</strong></p>
+                            <ul>
+                                <li data-key="tips-6-how-li1">Hra <strong>před spuštěním generování zkontroluje</strong>, jestli je vaše zařízení dostatečně výkonné.</li>
+                                <li data-key="tips-6-how-li2">Pokud je telefon <strong>velmi slabý</strong>, hra generování rovnou <strong>odmítne</strong> – předejde se tím pádu aplikace nebo zamrznutí telefonu.</li>
+                                <li data-key="tips-6-how-li3">Pokud je zařízení <strong>na hranici limitu</strong>, hra vám <strong>umožní generování zkusit</strong> – existuje šance, že to na vašem telefonu přece jen poběží.</li>
+                            </ul>
+                            <p><strong data-key="tips-6-mean-title">Co to znamená pro vás?</strong></p>
+                            <ul>
+                                <li data-key="tips-6-mean-li1">Pokud vám generování videa nefunguje, <strong>není to chyba hry</strong> – je to ochrana vašeho zařízení.</li>
+                                <li data-key="tips-6-mean-li2">Můžete to zkusit na výkonnějším telefonu, pokud ho máte k dispozici.</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+        </div>
+
+    </div><!-- konec .main-wrapper -->
+
+    <!-- ==========================================
+    MODAL PRO OBRÁZKY
+    ========================================== -->
+    <div id="imgModal" class="modal" onclick="closeImage()">
+        <img class="modal-content" id="expandedImg">
+    </div>
+
+    <!-- ==========================================
+    JAVASCRIPT
+    ========================================== -->
+    <script>
+        // ==========================================
+        // PROMĚNNÉ
+        // ==========================================
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw9xWyA8kWFQKf13xIxGOoNF9ySnyIya77Oy_sLhGi4dWzfvEv9K-qUyFYeQrKgYzXF/exec?action=read";
+
+        let currentGame = 'home';
+        let currentLang = 'cs';
+
+        // ==========================================
+        // PŘEKLADOVÝ SLOVNÍK
+        // ==========================================
+        const translations = {
+            cs: {
+                // Menu
+                "menu-title": "🎮 MENU",
+                "menu-home": "🏠 DOMŮ",
+                "menu-section-games": "🎮 HRY",
+                "menu-beatshift": "🎵 BEATSHIFT VR",
+                "menu-labyrinth": "🧩 LABYRINT 3D VR",
+                "menu-section-info": "ℹ️ INFORMACE",
+                "menu-about": "👤 O MNĚ",
+                "menu-tips": "💡 TIPY A TRIKY",
+
+                // Home
+                "home-title": "Vítej na mé stránce\ns Android hrami",
+                "home-p1": "Všechny hry a projekty, které tady najdeš, vytvářím sám. Zaměřuji se na hry psané převážně v nativním kódu, abych dosáhl maximální optimalizace a plynulého chodu i na starších telefonech.",
+                "home-p2": "Kromě her sem postupně přidávám i užitečné návody – například jak si správně nastavit VR Box, aby zážitek z virtuální reality byl co nejlepší, nebo jak propojit Bluetooth ovladač pro Labyrint ve VR.",
+                "home-p3": "V levém menu si jednoduše vyber – rozklikni si libovolnou hru a prohlédni si žebříčky, stažení nebo detailní informace. Sekce Tipy a triky je připravená pro všechny, kdo chtějí z VR zařízení vytěžit maximum – od nastavení ostření až po opravu opotřebované pěnové podložky.",
+                "home-p4": "Pokud se chceš dozvědět víc o mně, klikni na O mně.",
+
+                // About
+                "about-title": "O mně",
+                "about-slogan": "Kdo jsem a proč tvořím",
+                "about-who-title": "Kdo jsem",
+                "about-who-text": "Jsem nezávislý tvůrce, který vytváří originální hry pro Android. Nejsem firma ani tým lidí — jen člověk, kterého baví tvořit vlastní projekty.",
+                "about-why-title": "Proč tvořím",
+                "about-why-text": "Tvorba her je pro mě způsob, jak spojit kreativitu, techniku a zábavu. Baví mě, když se nápad promění v něco, co si lidé stáhnou, zahrají a užijí.",
+                "about-how-title": "Jak tvořím",
+                "about-how-text": "Hry tvořím po práci ve svém volném čase. Každý projekt vzniká postupně — od prvního nápadu, přes grafiku, až po samotné programování.",
+                "about-what-title": "Co tvořím",
+                "about-what-text": "Zaměřuji se na menší, originální projekty, které jsou snadné na ovládání a dostupné každému. Moje hry neobsahují skryté funkce, sledování ani podvodné prvky.",
+                "about-firstgame-title": "Moje první hra",
+                "about-firstgame-text": "Moje úplně první hra, kterou jsem vytvořil od nuly, se jmenuje Labyrun a je dostupná na Google Play. Je to důkaz, že za projekty stojí skutečný tvůrce, ne anonymní podvodník. Labyrun je jednoduchá, čistá a bezpečná hra — první krok do světa mobilního vývoje.",
+                "about-why-not-play-title": "Proč už nepublikuji na Google Play",
+                "about-why-not-play-text": "Moje hry na Google Play nebyly vidět — ztrácely se mezi tisíci jiných projektů a téměř nikdo je nenašel. Proto jsem se rozhodl jít vlastní cestou a budovat místo, kde moje hry opravdu dostanou prostor. Publikuji je na své vlastní webové stránce, případně na platformách jako itch.io nebo APKPure.",
+                "about-vr-title": "Proč tvořím VR hry",
+                "about-vr-text": "Kvalitních a zároveň free VR her pro Android je velmi málo — a já to chci změnit. VR Box je levný způsob, jak si kdokoli může vyzkoušet virtuální realitu doma, aniž by musel investovat tisíce do drahých VR headsetů. Chci přiblížit svět VR i lidem, kteří si nemohou dovolit drahé zařízení, a ukázat, že i jednoduché mobilní VR může být zábavné, dostupné a bezpečné.",
+                "about-not-hacker-title": "Nejsem hacker",
+                "about-not-hacker-text": "Nepíšu škodlivý kód, nesbírám data a nesnažím se hráče nijak manipulovat. Moje hry neobsahují malware, podvodné prvky ani nic, co by poškozovalo zařízení. Jsem tvůrce, ne hacker — a bezpečnost hráčů je pro mě zásadní.",
+                "about-safety-title": "Zásady bezpečnosti",
+                "about-safety-text": "Každá moje hra je navržena tak, aby byla čistá, bezpečná a férová. Neukládám citlivé informace, nevyžaduji osobní údaje a nepoužívám žádné sledovací systémy.",
+                "about-contact-title": "Kontakt",
+                "about-contact-text": "Pokud máš dotaz nebo chceš nahlásit problém, můžeš mi napsat na: martinegames@centrum.cz",
+
+                // BeatShift
+                "beatshift-title": "BeatShift VR",
+                "beatshift-slogan": "Tvoje hudba, Tvoje hra",
+                "beatshift-nav-leaderboards": "SÍŇ SLÁVY",
+                "beatshift-nav-info": "O HŘE / STÁHNOUT",
+                "beatshift-diff-easy": "EASY",
+                "beatshift-diff-medium": "NORMAL",
+                "beatshift-diff-hard": "HARD",
+                "beatshift-antivirus-badge": "🛡️ PROVĚŘENO ANTIVIREM - 100% BEZPEČNÉ",
+                "beatshift-tech-title": "Technické specifikace",
+                "beatshift-tech-os": "Podporované OS:",
+                "beatshift-tech-os-text": "Android 7.0 (Nougat) až Android 16.",
+                "beatshift-tech-control": "Ovládání:",
+                "beatshift-tech-control-text": "Hra využívá Gyroskop vašeho telefonu.",
+                "beatshift-tech-modes": "Režimy:",
+                "beatshift-tech-modes-text": "Plná podpora VR (Cardboard) i klasického režimu bez brýlí.",
+                "beatshift-tech-langs": "Podporované jazyky:",
+                "beatshift-tech-langs-text": "Čeština, Angličtina, Němčina, Portugalština, Španělština, Slovenština, Polština, Ukrajinština, Ruština.",
+                "beatshift-safety-title": "Bezpečnost a věk",
+                "beatshift-safety-age": "Doporučený věk: 12+ (vzhledem k použití VR technologie a intenzivním vizuálním efektům).",
+                "beatshift-safety-virus": "Tato aplikace není virus. Neobsahuje žádný škodlivý kód a nevyžaduje přístup k vašim soukromým datům (pouze přístup k hudebním souborům, které si sami vyberete ke hře).",
+                "beatshift-gallery-title": "Galerie",
+                "beatshift-desc-title": "Popis hry",
+                "beatshift-desc-p1": "Beat Shift ti umožní proměnit jakoukoli MP3 skladbu uloženou v telefonu v jedinečnou rytmickou výzvu. Stačí si vybrat píseň, zvolit vizuální styl a hra sama vygeneruje překážky přesně podle rytmu hudby. Každá skladba tak vytvoří úplně nový level.",
+                "beatshift-desc-p2": "Vyhýbej se nárazům a nech se vtáhnout do světa, kde hudba řídí úplně všechno.",
+                "beatshift-privacy-title": "Ochrana soukromí",
+                "beatshift-priv-1-t": "1. SBĚR DAT:",
+                "beatshift-priv-1-d": "Tato aplikace nesbírá žádné osobní údaje uživatelů (jako e-mail, jméno nebo telefonní číslo).",
+                "beatshift-priv-2-t": "2. PŘEZDÍVKA A SKÓRE:",
+                "beatshift-priv-2-d": "Pokud se rozhodnete sdílet své skóre, bude vaše zvolená přezdívka a dosažené body odeslány na veřejný žebříček. Tato volba je dobrovolná.",
+                "beatshift-priv-3-t": "3. MULTIMÉDIA:",
+                "beatshift-priv-3-d": "Aplikace vyžaduje přístup k úložišti pouze pro účely uložení vygenerovaného videa z vaší hry a pro přístup k hudbě, kterou si sami zvolíte ke hraní.",
+                "beatshift-priv-4-t": "4. SENZORY:",
+                "beatshift-priv-4-d": "Hra využívá gyroskop vašeho zařízení pro sledování pohybu. Tato data nejsou nikde ukládána ani odesílána.",
+                "beatshift-priv-5-t": "5. DOPORUČENÝ VĚK:",
+                "beatshift-priv-5-d": "Hra je doporučena pro hráče od 12 let. U mladších hráčů se doporučuje dohled dospělé osoby a kratší herní relace z důvodu používání VR technologie.",
+                "beatshift-priv-6-t": "6. KONTAKT:",
+                "beatshift-priv-6-d": "V případě dotazů mě kontaktujte na martinegames@centrum.cz.",
+                "beatshift-ready-title": "PŘIPRAVEN KE STARTU?",
+                "beatshift-ready-desc": "Stáhni si nejnovější verzi přímo od vývojáře.",
+                "beatshift-btn-download": "STÁHNOUT APK",
+                "beatshift-version-label": "Verze",
+                "beatshift-size-label": "Velikost",
+
+                // Labyrint
+                "labyrint-title": "Labyrint 3D/VR",
+                "labyrint-slogan": "Tvůj labyrint. Tvoje cesta.",
+                "labyrint-nav-info": "O HŘE / STÁHNOUT",
+                "labyrint-antivirus-badge": "🛡️ PROVĚŘENO ANTIVIREM - 100% BEZPEČNÉ",
+                "labyrint-tech-title": "Technické specifikace",
+                "labyrint-tech-os": "Podporované OS:",
+                "labyrint-tech-os-text": "Android 7.0 (Nougat) až Android 16.",
+                "labyrint-tech-control": "Ovládání:",
+                "labyrint-tech-control-text": "Dotyk (levý/pravý prst) nebo Gamepad pro VR.",
+                "labyrint-tech-modes": "Režimy:",
+                "labyrint-tech-modes-text": "Závod, Plížení, Hledání pokladů, Multiplayer přes Bluetooth.",
+                "labyrint-tech-langs": "Podporované jazyky:",
+                "labyrint-tech-langs-text": "Čeština, Angličtina, Němčina, Portugalština, Španělština, Slovenština, Polština, Ukrajinština, Ruština.",
+                "labyrint-safety-title": "Bezpečnost a věk",
+                "labyrint-safety-age": "Doporučený věk: 12+ (vzhledem k použití VR technologie a intenzivním vizuálním efektům).",
+                "labyrint-safety-virus": "Tato aplikace není virus. Neobsahuje žádný škodlivý kód a nevyžaduje přístup k vašim soukromým datům.",
+                "labyrint-gallery-title": "Galerie",
+                "labyrint-desc-title": "Popis hry",
+                "labyrint-desc-p1": "Vstup do Labyrintu 3D/VR, kde každý krok může být tvůj poslední. Čekají tě temné chodby, nepřátelé, poklady a závod s časem.",
+                "labyrint-desc-p2": "Hraj sám, nebo se spoj s kamarádem přes Bluetooth multiplayer – každý na svém telefonu, ve VR i bez VR.",
+                "labyrint-desc-p3": "Vyber si jeden z režimů:",
+                "labyrint-desc-p4": "VR ti dá maximální atmosféru, klasické ovládání zase pohodlí. Labyrint čeká – troufneš si?",
+                "labyrint-privacy-title": "Ochrana soukromí",
+                "labyrint-priv-1-t": "1. SBĚR DAT:",
+                "labyrint-priv-1-d": "Tato aplikace nesbírá žádné osobní údaje uživatelů (jako e-mail, jméno nebo telefonní číslo).",
+                "labyrint-priv-2-t": "2. REKLAMY:",
+                "labyrint-priv-2-d": "Aplikace používá reklamní síť Start.io, která může sbírat anonymní identifikátor zařízení pro cílení reklam.",
+                "labyrint-priv-3-t": "3. BLUETOOTH:",
+                "labyrint-priv-3-d": "Bluetooth se používá výhradně pro multiplayer. Žádná data nejsou odesílána na servery.",
+                "labyrint-priv-4-t": "4. SENZORY:",
+                "labyrint-priv-4-d": "Hra využívá gyroskop pro VR režim. Tato data nejsou nikde ukládána ani odesílána.",
+                "labyrint-priv-5-t": "5. PLATBY:",
+                "labyrint-priv-5-d": "Při nákupu Premium verze jsou platební údaje zpracovávány přes Stripe. My je neukládáme.",
+                "labyrint-priv-6-t": "6. DOPORUČENÝ VĚK:",
+                "labyrint-priv-6-d": "Hra je doporučena pro hráče od 12 let. U mladších hráčů se doporučuje dohled dospělé osoby.",
+                "labyrint-priv-7-t": "7. KONTAKT:",
+                "labyrint-priv-7-d": "V případě dotazů mě kontaktujte na martinegames@centrum.cz.",
+                "labyrint-ready-title": "PŘIPRAVEN KE STARTU?",
+                "labyrint-ready-desc": "Stáhni si nejnovější verzi přímo od vývojáře.",
+                "labyrint-btn-download": "STÁHNOUT APK",
+                "labyrint-version-label": "Verze",
+                "labyrint-size-label": "Velikost",
+
+                // Tips
+                "tips-title": "💡 Tipy a triky",
+                "tips-slogan": "Praktické rady pro lepší herní zážitek",
+                "tips-1-title": "1. Co dělat, když VR Box nejde zaostřit a obraz je stále rozmazaný",
+                "tips-1-step1": "1. Zkontrolujte základní nastavení",
+                "tips-1-step1a": "Posuňte čočky na šířku vašich očí (IPD) – většina VR Boxů má na to buď kolečko nebo posuvnou páčku. Některé starší modely mají pevnou pozici a tam je to složitější.",
+                "tips-1-step1b": "Pokud má váš VR Box kolečko na ostření: otáčejte jím, dokud nenajdete nejostřejší bod.",
+                "tips-1-step1c": "Pokud má váš VR Box posuvnou páčku: zkuste ji posouvat dopředu/dozadu, dokud nenajdete ostrý obraz.",
+                "tips-1-step2": "2. Pokud to nestačí, přidejte distanční vrstvu",
+                "tips-1-step2a": "Někdy je problém v tom, že máte obličej příliš blízko k čočkám.",
+                "tips-1-step2b": "Řešení: vystřihněte novou pěnovou výplň podle tvaru VR Boxu. Můžete použít:",
+                "tips-1-step2c": "Novou pěnu – koupit v hobby marketu, vystřihnout podle šablony.",
+                "tips-1-step2d": "Starý pěnový obal – z krabice od elektroniky.",
+                "tips-1-step2e": "Látku složenou do vrstev – jako provizorní řešení.",
+                "tips-1-step2f": "Nalepte ji na stávající pěnu (nebo na její místo) tak, aby přidala 1–2 cm navíc.",
+                "tips-1-step2g": "Tím se vaše oči dostanou do správné vzdálenosti od čoček a obraz se výrazně zlepší.",
+                "tips-1-step3": "3. Materiály, které NEPOUŽÍVAT",
+                "tips-1-step3a": "Pěna s velkými bublinami – propouští světlo dovnitř a kazí atmosféru (všude vidíte okraje).",
+                "tips-2-title": "2. Bluetooth ovladač pro Labyrint 3D/VR",
+                "tips-2-p1": "Pokud hrajete Labyrint ve VR režimu, telefon je zasunutý v brýlích a dotyk na displej nefunguje. K pohybu v labyrintu proto potřebujete Bluetooth ovladač.",
+                "tips-2-li1": "Stačí obyčejný Bluetooth gamepad nebo joystick.",
+                "tips-2-li2": "Ovladač spárujte s telefonem (přes Nastavení → Bluetooth).",
+                "tips-2-li3": "Hra vás upozorní, že ve VR režimu je ovladač potřeba.",
+                "tips-2-p2": "Nepíšu konkrétní tlačítka, protože každý ovladač je jiný – levný gamepad z AliExpressu má jiné mapování než ovladač od Xboxu. Hra si všechno načte sama.",
+                "tips-2-p3": "Stačí si vyzkoušet tlačítka na ovladači a zjistit, které z nich reaguje na co – pohyb, interakce atd.",
+                "tips-3-title": "3. Labyrint – minimapa a orientace ve VR",
+                "tips-3-li1": "V režimu bez VR máte k dispozici minimapu, která vám pomáhá orientovat se v labyrintu.",
+                "tips-3-li2": "Ve VR režimu by minimapa rušila a kazila ponor do hry. Proto je ve VR nahrazena označením cesty na zemi.",
+                "tips-3-li3": "Pokud ve VR chcete znát směr, vyzkoušejte tlačítka na ovladači – jedno z nich aktivuje označení cesty přímo na zemi před vámi.",
+                "tips-4-title": "4. Čištění čoček – na co si dát pozor",
+                "tips-4-p1": "VR Box používá plastové čočky, které se snadno poškrábou.",
+                "tips-4-li1": "Nikdy nepoužívejte suchý hadřík – prachové částice poškrábou povrch.",
+                "tips-4-li2": "Používejte mikrovláknový hadřík (na brýle).",
+                "tips-4-li3": "Jemnými krouživými pohyby čistěte.",
+                "tips-4-li4": "Pokud jsou čočky mastné, hadřík lehce navlhčete destilovanou vodou. Nikdy nepoužívejte alkohol ani čisticí prostředky – zničily by povrchovou úpravu.",
+                "tips-5-title": "5. Proč je obraz v VR Boxu méně ostrý než v drahých VR heads­etech",
+                "tips-5-li1": "VR Box používá plastové čočky, drahé VR headsety používají skleněné s antireflexní vrstvou.",
+                "tips-5-li2": "To je prostě daň za nízkou cenu.",
+                "tips-5-li3": "Ale i s VR Boxem se dá užít spousta zábavy, když si ho správně nastavíte podle mých tipů.",
+                "tips-6-title": "6. Generování videa v BeatShift – proč to nefunguje na všech telefonech",
+                "tips-6-p1": "BeatShift umí po dohrání levelu vygenerovat video z vaší hry. Je to skvělá funkce pro sdílení vašich výkonů s přáteli.",
+                "tips-6-why-title": "Proč ale nefunguje na všech telefonech?",
+                "tips-6-why-li1": "Generování videa je velmi náročný proces – vyžaduje hodně výkonu procesoru a grafického čipu.",
+                "tips-6-why-li2": "Na trhu jsou stovky různých modelů telefonů s různým výkonem. Není možné, aby generování videa fungovalo na každém z nich.",
+                "tips-6-how-title": "Jak to hra řeší?",
+                "tips-6-how-li1": "Hra před spuštěním generování zkontroluje, jestli je vaše zařízení dostatečně výkonné.",
+                "tips-6-how-li2": "Pokud je telefon velmi slabý, hra generování rovnou odmítne – předejde se tím pádu aplikace nebo zamrznutí telefonu.",
+                "tips-6-how-li3": "Pokud je zařízení na hranici limitu, hra vám umožní generování zkusit – existuje šance, že to na vašem telefonu přece jen poběží.",
+                "tips-6-mean-title": "Co to znamená pro vás?",
+                "tips-6-mean-li1": "Pokud vám generování videa nefunguje, není to chyba hry – je to ochrana vašeho zařízení.",
+                "tips-6-mean-li2": "Můžete to zkusit na výkonnějším telefonu, pokud ho máte k dispozici."
+            },
+            en: {
+                // Menu
+                "menu-title": "🎮 MENU",
+                "menu-home": "🏠 HOME",
+                "menu-section-games": "🎮 GAMES",
+                "menu-beatshift": "🎵 BEATSHIFT VR",
+                "menu-labyrinth": "🧩 LABYRINT 3D VR",
+                "menu-section-info": "ℹ️ INFO",
+                "menu-about": "👤 ABOUT ME",
+                "menu-tips": "💡 TIPS & TRICKS",
+
+                // Home
+                "home-title": "Welcome to my\nAndroid games page",
+                "home-p1": "All games and projects you find here are created by me. I focus on games written primarily in native code to achieve maximum optimization and smooth performance even on older phones.",
+                "home-p2": "Besides games, I gradually add useful guides – for example how to properly set up your VR Box for the best virtual reality experience, or how to connect a Bluetooth controller for Labyrint in VR.",
+                "home-p3": "Simply choose from the left menu – click on any game to view leaderboards, download, or detailed information. The Tips & Tricks section is ready for everyone who wants to get the most out of their VR device – from focus adjustment to repairing worn-out foam padding.",
+                "home-p4": "If you want to learn more about me, click on About Me.",
+
+                // About
+                "about-title": "About Me",
+                "about-slogan": "Who I am and why I create",
+                "about-who-title": "Who I am",
+                "about-who-text": "I am an independent creator who makes original games for Android. I'm not a company or a team — just a person who enjoys building their own projects.",
+                "about-why-title": "Why I create",
+                "about-why-text": "Game development is my way of blending creativity, technology, and fun. I love seeing an idea turn into something people download, play, and enjoy.",
+                "about-how-title": "How I create",
+                "about-how-text": "I work on games in my free time after my day job. Each project grows step by step — from the first spark of an idea, through graphics, to the actual coding.",
+                "about-what-title": "What I create",
+                "about-what-text": "I focus on smaller, original projects that are easy to control and accessible to everyone. My games have no hidden features, tracking, or deceptive elements.",
+                "about-firstgame-title": "My first game",
+                "about-firstgame-text": "My very first game built from scratch is called Labyrun and it's available on Google Play. It proves that there's a real person behind the projects, not an anonymous scammer. Labyrun is simple, clean, and safe — the first step into the world of mobile development.",
+                "about-why-not-play-title": "Why I no longer publish on Google Play",
+                "about-why-not-play-text": "My games weren't visible on Google Play — they got lost among thousands of other projects and almost no one found them. That's why I decided to go my own way and build a place where my games can truly get attention. I publish them on my own website, as well as on platforms like itch.io or APKPure.",
+                "about-vr-title": "Why I make VR games",
+                "about-vr-text": "There are very few high-quality VR games for Android — and I want to change that. VR Box is an affordable way for anyone to try virtual reality at home without investing thousands in expensive VR headsets. I want to bring VR closer to people who cannot afford premium devices and show that even simple mobile VR can be fun, accessible, and safe.",
+                "about-not-hacker-title": "I am not a hacker",
+                "about-not-hacker-text": "I do not write malicious code, collect data, or try to manipulate players. My games contain no malware, fraudulent features, or anything that could harm your device. I am a creator, not a hacker — and player safety is essential to me.",
+                "about-safety-title": "Safety principles",
+                "about-safety-text": "Every game I make is designed to be clean, secure, and fair. I do not store sensitive information, require personal data, or use any tracking systems.",
+                "about-contact-title": "Contact",
+                "about-contact-text": "If you have any questions or want to report an issue, feel free to write to me at: martinegames@centrum.cz",
+
+                // BeatShift
+                "beatshift-title": "BeatShift VR",
+                "beatshift-slogan": "Your music, Your game",
+                "beatshift-nav-leaderboards": "LEADERBOARDS",
+                "beatshift-nav-info": "ABOUT / DOWNLOAD",
+                "beatshift-diff-easy": "EASY",
+                "beatshift-diff-medium": "NORMAL",
+                "beatshift-diff-hard": "HARD",
+                "beatshift-antivirus-badge": "🛡️ ANTIVIRUS VERIFIED - 100% SAFE",
+                "beatshift-tech-title": "Technical Specifications",
+                "beatshift-tech-os": "Supported OS:",
+                "beatshift-tech-os-text": "Android 7.0 (Nougat) up to Android 16.",
+                "beatshift-tech-control": "Control:",
+                "beatshift-tech-control-text": "The game uses your phone's Gyroscope.",
+                "beatshift-tech-modes": "Modes:",
+                "beatshift-tech-modes-text": "Full support for VR (Cardboard) and classic mobile mode.",
+                "beatshift-tech-langs": "Supported languages:",
+                "beatshift-tech-langs-text": "Czech, English, German, Portuguese, Spanish, Slovak, Polish, Ukrainian, Russian.",
+                "beatshift-safety-title": "Safety and Age",
+                "beatshift-safety-age": "Recommended age: 12+ (due to VR technology and intense visual effects).",
+                "beatshift-safety-virus": "This app is not a virus. It contains no harmful code and does not access your private data (only access to music files you choose for the game).",
+                "beatshift-gallery-title": "Gallery",
+                "beatshift-desc-title": "Game Description",
+                "beatshift-desc-p1": "Beat Shift allows you to turn any MP3 song stored on your phone into a unique rhythmic challenge. Simply choose a song, select a visual style, and the game automatically generates obstacles exactly to the beat of the music. Each song creates a completely new level.",
+                "beatshift-desc-p2": "Avoid crashes and get drawn into a world where music drives everything.",
+                "beatshift-privacy-title": "Privacy Policy",
+                "beatshift-priv-1-t": "1. DATA COLLECTION:",
+                "beatshift-priv-1-d": "This application does not collect any personal data of users (such as email, name, or phone number).",
+                "beatshift-priv-2-t": "2. NICKNAME AND SCORE:",
+                "beatshift-priv-2-d": "If you decide to share your score, your chosen nickname and points achieved will be sent to the public leaderboard. This choice is voluntary.",
+                "beatshift-priv-3-t": "3. MULTIMEDIA:",
+                "beatshift-priv-3-d": "The application requires storage access only for the purpose of saving generated video from your game and for access to music you choose to play.",
+                "beatshift-priv-4-t": "4. SENSORS:",
+                "beatshift-priv-4-d": "The game uses your device's gyroscope for movement tracking. This data is not stored or sent anywhere.",
+                "beatshift-priv-5-t": "5. RECOMMENDED AGE:",
+                "beatshift-priv-5-d": "The game is recommended for players aged 12 and up. Supervision is recommended for younger players due to VR technology use.",
+                "beatshift-priv-6-t": "6. CONTACT:",
+                "beatshift-priv-6-d": "For questions, contact us at martinegames@centrum.cz.",
+                "beatshift-ready-title": "READY TO START?",
+                "beatshift-ready-desc": "Download the latest version directly from the developer.",
+                "beatshift-btn-download": "DOWNLOAD APK",
+                "beatshift-version-label": "Version",
+                "beatshift-size-label": "Size",
+
+                // Labyrint
+                "labyrint-title": "Labyrint 3D/VR",
+                "labyrint-slogan": "Your labyrinth. Your journey.",
+                "labyrint-nav-info": "ABOUT / DOWNLOAD",
+                "labyrint-antivirus-badge": "🛡️ ANTIVIRUS VERIFIED - 100% SAFE",
+                "labyrint-tech-title": "Technical Specifications",
+                "labyrint-tech-os": "Supported OS:",
+                "labyrint-tech-os-text": "Android 7.0 (Nougat) up to Android 16.",
+                "labyrint-tech-control": "Control:",
+                "labyrint-tech-control-text": "Touch (left/right finger) or Gamepad for VR.",
+                "labyrint-tech-modes": "Modes:",
+                "labyrint-tech-modes-text": "Race, Stealth, Treasure Hunt, Multiplayer via Bluetooth.",
+                "labyrint-tech-langs": "Supported languages:",
+                "labyrint-tech-langs-text": "Czech, English, German, Portuguese, Spanish, Slovak, Polish, Ukrainian, Russian.",
+                "labyrint-safety-title": "Safety and Age",
+                "labyrint-safety-age": "Recommended age: 12+ (due to VR technology and intense visual effects).",
+                "labyrint-safety-virus": "This app is not a virus. It contains no harmful code and does not access your private data.",
+                "labyrint-gallery-title": "Gallery",
+                "labyrint-desc-title": "Game Description",
+                "labyrint-desc-p1": "Enter the Labyrinth 3D/VR, where every step could be your last. Dark corridors, enemies, treasures, and a race against time await you.",
+                "labyrint-desc-p2": "Play alone or team up with a friend via Bluetooth multiplayer – each on their own phone, in VR or without VR.",
+                "labyrint-desc-p3": "Choose one of the modes:",
+                "labyrint-desc-p4": "VR gives you maximum atmosphere, classic controls give you comfort. The labyrinth awaits – dare you enter?",
+                "labyrint-privacy-title": "Privacy Policy",
+                "labyrint-priv-1-t": "1. DATA COLLECTION:",
+                "labyrint-priv-1-d": "This application does not collect any personal data of users (such as email, name, or phone number).",
+                "labyrint-priv-2-t": "2. ADS:",
+                "labyrint-priv-2-d": "The app uses the Start.io ad network, which may collect an anonymous device identifier for ad targeting.",
+                "labyrint-priv-3-t": "3. BLUETOOTH:",
+                "labyrint-priv-3-d": "Bluetooth is used exclusively for multiplayer. No data is sent to servers.",
+                "labyrint-priv-4-t": "4. SENSORS:",
+                "labyrint-priv-4-d": "The app uses the gyroscope for VR mode. This data is not stored or transmitted anywhere.",
+                "labyrint-priv-5-t": "5. PAYMENTS:",
+                "labyrint-priv-5-d": "When purchasing the Premium version, payment data is processed by Stripe. We do not store it.",
+                "labyrint-priv-6-t": "6. RECOMMENDED AGE:",
+                "labyrint-priv-6-d": "The game is recommended for players aged 12 and above. Younger players should be supervised by an adult.",
+                "labyrint-priv-7-t": "7. CONTACT:",
+                "labyrint-priv-7-d": "If you have any questions, please contact us at martinegames@centrum.cz.",
+                "labyrint-ready-title": "READY TO START?",
+                "labyrint-ready-desc": "Download the latest version directly from the developer.",
+                "labyrint-btn-download": "DOWNLOAD APK",
+                "labyrint-version-label": "Version",
+                "labyrint-size-label": "Size",
+
+                // Tips
+                "tips-title": "💡 Tips & Tricks",
+                "tips-slogan": "Practical advice for a better gaming experience",
+                "tips-1-title": "1. What to do when VR Box won't focus and the image is still blurry",
+                "tips-1-step1": "1. Check the basic settings",
+                "tips-1-step1a": "Adjust the lenses to the width of your eyes (IPD) – most VR Boxes have either a wheel or a sliding lever for this. Some older models have a fixed position, making it more complicated.",
+                "tips-1-step1b": "If your VR Box has a focus wheel: turn it until you find the sharpest point.",
+                "tips-1-step1c": "If your VR Box has a sliding lever: try sliding it forward/backward until you get a sharp image.",
+                "tips-1-step2": "2. If that doesn't work, add a distance layer",
+                "tips-1-step2a": "Sometimes the problem is that your face is too close to the lenses.",
+                "tips-1-step2b": "Solution: cut out a new foam padding according to the shape of your VR Box. You can use:",
+                "tips-1-step2c": "New foam – buy at a hobby store, cut to shape.",
+                "tips-1-step2d": "Old foam padding – from an electronics box.",
+                "tips-1-step2e": "Fabric folded into layers – as a temporary solution.",
+                "tips-1-step2f": "Glue it onto the existing foam (or in its place) so it adds 1–2 cm extra.",
+                "tips-1-step2g": "This will put your eyes at the correct distance from the lenses and the image will significantly improve.",
+                "tips-1-step3": "3. Materials NOT to use",
+                "tips-1-step3a": "Foam with large bubbles – lets light in and ruins the atmosphere (you see edges everywhere).",
+                "tips-2-title": "2. Bluetooth controller for Labyrint 3D/VR",
+                "tips-2-p1": "If you're playing Labyrint in VR mode, the phone is inserted in the headset and touch on the screen doesn't work. You need a Bluetooth controller to move through the labyrinth.",
+                "tips-2-li1": "Any ordinary Bluetooth gamepad or joystick will do.",
+                "tips-2-li2": "Pair the controller with your phone (via Settings → Bluetooth).",
+                "tips-2-li3": "The game will notify you that a controller is needed in VR mode.",
+                "tips-2-p2": "I don't specify exact buttons because every controller is different – a cheap gamepad from AliExpress has different mapping than an Xbox controller. The game detects everything automatically.",
+                "tips-2-p3": "Just try the buttons on your controller to find out which one does what – movement, interaction, etc.",
+                "tips-3-title": "3. Labyrint – minimap and orientation in VR",
+                "tips-3-li1": "In non-VR mode, you have a minimap to help you navigate the labyrinth.",
+                "tips-3-li2": "In VR mode, a minimap would be distracting and break immersion. Instead, it's replaced by a path indicator on the ground.",
+                "tips-3-li3": "If you want to know the direction in VR, try the buttons on your controller – one of them will activate a path marking directly on the ground in front of you.",
+                "tips-4-title": "4. Cleaning lenses – what to watch out for",
+                "tips-4-p1": "VR Box uses plastic lenses that scratch easily.",
+                "tips-4-li1": "Never use a dry cloth – dust particles will scratch the surface.",
+                "tips-4-li2": "Use a microfiber cloth (for glasses).",
+                "tips-4-li3": "Clean with gentle circular motions.",
+                "tips-4-li4": "If the lenses are greasy, lightly dampen the cloth with distilled water. Never use alcohol or cleaning agents – they would damage the surface coating.",
+                "tips-5-title": "5. Why the image in VR Box is less sharp than in expensive VR headsets",
+                "tips-5-li1": "VR Box uses plastic lenses, expensive VR headsets use glass lenses with anti-reflective coating.",
+                "tips-5-li2": "That's simply the price for low cost.",
+                "tips-5-li3": "But even with a VR Box, you can have plenty of fun if you set it up properly according to my tips.",
+                "tips-6-title": "6. Video generation in BeatShift – why it doesn't work on all phones",
+                "tips-6-p1": "BeatShift can generate a video of your game after you finish a level. It's a great feature for sharing your performances with friends.",
+                "tips-6-why-title": "But why doesn't it work on all phones?",
+                "tips-6-why-li1": "Video generation is a very demanding process – it requires a lot of CPU and GPU power.",
+                "tips-6-why-li2": "There are hundreds of different phone models with varying performance on the market. It's not possible for video generation to work on every single one.",
+                "tips-6-how-title": "How does the game handle it?",
+                "tips-6-how-li1": "The game checks before starting generation whether your device is powerful enough.",
+                "tips-6-how-li2": "If the phone is very weak, the game will refuse to generate – this prevents app crashes or phone freezes.",
+                "tips-6-how-li3": "If the device is on the edge of the limit, the game will let you try – there's a chance it might work on your phone after all.",
+                "tips-6-mean-title": "What does this mean for you?",
+                "tips-6-mean-li1": "If video generation doesn't work for you, it's not a bug – it's protection for your device.",
+                "tips-6-mean-li2": "You can try it on a more powerful phone if you have one available."
+            }
+        };
+
+        // ==========================================
+        // FUNKCE PRO JAZYK
+        // ==========================================
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            try {
+                localStorage.setItem('preferred_lang', lang);
+            } catch(e) {}
+
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            document.documentElement.lang = lang;
+
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (translations[lang] && translations[lang][key] !== undefined) {
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.value = translations[lang][key];
+                    } else {
+                        el.innerText = translations[lang][key];
+                    }
+                }
+            });
+        }
+
+        // ==========================================
+        // FUNKCE PRO PŘEPÍNÁNÍ HER A SEKCÍ
+        // ==========================================
+
+        function switchGame(gameId) {
+            currentGame = gameId;
+
+            document.querySelectorAll('.game-page').forEach(p => p.classList.remove('active'));
+            const targetPage = document.getElementById('game-' + gameId);
+            if (targetPage) targetPage.classList.add('active');
+
+            document.querySelectorAll('.side-btn').forEach(b => b.classList.remove('active'));
+            const sideBtn = document.getElementById('side-btn-' + gameId);
+            if (sideBtn) sideBtn.classList.add('active');
+
+            if (targetPage) {
+                // Zjisti, jestli přišel ze hry
+                const urlParams = new URLSearchParams(window.location.search);
+                const source = urlParams.get('source');
+
+                // Pro BeatShift: pokud přišel ze hry → leaderboards, jinak → info
+                if (gameId === 'beatshift') {
+                    if (source === 'game') {
+                        // Ze hry → zobraz leaderboards
+                        showSection('leaderboards-beatshift');
+                    } else {
+                        // Z internetu → zobraz info (O hře / Stáhnout)
+                        showSection('info-beatshift');
+                    }
+                } else {
+                    // Pro ostatní hry → první sekce (default)
+                    const firstSection = targetPage.querySelector('section');
+                    if (firstSection) {
+                        targetPage.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+                        firstSection.classList.add('active');
+                        const navBtns = targetPage.querySelectorAll('nav button');
+                        navBtns.forEach(b => {
+                            b.classList.remove('active');
+                            const sectionId = b.id.replace('btn-', '');
+                            if (sectionId === firstSection.id) {
+                                b.classList.add('active');
+                            }
+                        });
+                    }
+                }
+            }
+
+            // Načíst data pro BeatShift (pokud je aktivní)
+            if (gameId === 'beatshift') {
+                loadData();
+            }
+        }
+
+        function showSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (!section) return;
+            const page = section.closest('.game-page');
+            if (!page) return;
+
+            page.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+            section.classList.add('active');
+
+            const navBtns = page.querySelectorAll('nav button');
+            navBtns.forEach(b => {
+                b.classList.remove('active');
+                const btnSectionId = b.id.replace('btn-', '');
+                if (btnSectionId === sectionId) {
+                    b.classList.add('active');
+                }
+            });
+        }
+
+        // ==========================================
+        // LEADERBOARD DATA (pouze pro BeatShift)
+        // ==========================================
+
+        async function loadData() {
+            try {
+                const response = await fetch(SCRIPT_URL);
+                const data = await response.json();
+                renderTable(data, "Easy", "data-easy");
+                renderTable(data, "Medium", "data-med");
+                renderTable(data, "Hard", "data-hard");
+            } catch (e) {
+                console.error("Data error:", e);
+            }
+        }
+
+        function renderTable(allData, diff, elementId) {
+            const container = document.getElementById(elementId);
+            if (!container) return;
+            const filtered = allData.filter(i => i.diff === diff).sort((a, b) => b.score - a.score).slice(0, 20);
+            let html = "";
+            if (filtered.length === 0) {
+                html = "<tr><td colspan='3' style='text-align:center;color:#888;'>No data yet</td></tr>";
+            } else {
+                filtered.forEach((item, index) => {
+                    const rank = index + 1;
+                    let medal = rank === 1 ? " 🥇" : rank === 2 ? " 🥈" : rank === 3 ? " 🥉" : "";
+                    html += `<tr class="${rank <= 3 ? "top-row" : ""}"><td class="rank-cell">${rank}.${medal}</td><td><strong>${item.name}</strong><span class="track-info">${item.track}</span></td><td class="score-cell">${item.score.toLocaleString()}</td></tr>`;
+                    if (rank === 3) html += `<tr class="gap-row"><td colspan="3"></td></tr>`;
+                });
+            }
+            container.innerHTML = html;
+        }
+
+        // ==========================================
+        // MODAL PRO OBRÁZKY
+        // ==========================================
+
+        function openImage(src) {
+            document.getElementById("imgModal").style.display = "block";
+            document.getElementById("expandedImg").src = src;
+        }
+
+        function closeImage() {
+            document.getElementById("imgModal").style.display = "none";
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "Escape") closeImage();
+        });
+
+        // ==========================================
+        // INICIALIZACE – DETEKCE PŘÍCHODU
+        // ==========================================
+
+        document.addEventListener('DOMContentLoaded', function() {
+            let preferred = 'cs';
+            try {
+                const stored = localStorage.getItem('preferred_lang');
+                if (stored && (stored === 'cs' || stored === 'en')) {
+                    preferred = stored;
+                } else {
+                    const browserLang = navigator.language || navigator.languages?.[0] || 'cs';
+                    if (browserLang.startsWith('en')) preferred = 'en';
+                    else preferred = 'cs';
+                }
+            } catch(e) {}
+
+            setLanguage(preferred);
+
+            // ★ DETEKCE ODKUD PŘIŠEL ★
+            const urlParams = new URLSearchParams(window.location.search);
+            const source = urlParams.get('source');
+
+            if (source === 'game') {
+                // Přišel ze hry → zobraz BeatShift
+                switchGame('beatshift');
+            } else {
+                // Přišel z internetu → zobraz DOMŮ (úvodní stránku)
+                switchGame('home');
+            }
+
+            // Načíst data pro BeatShift (pro jistotu)
+            loadData();
+        });
+    </script>
+
+</body>
+</html>
