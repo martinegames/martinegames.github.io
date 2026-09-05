@@ -1643,15 +1643,15 @@
         // ==========================================
 
         document.addEventListener('DOMContentLoaded', function() {
-            let preferred = 'cs';
+            let preferred = 'en';
             try {
                 const stored = localStorage.getItem('preferred_lang');
-                if (stored && (stored === 'cs' || stored === 'en')) {
+                if (stored && (stored === 'en' || stored === 'cs')) {
                     preferred = stored;
                 } else {
-                    const browserLang = navigator.language || navigator.languages?.[0] || 'cs';
-                    if (browserLang.startsWith('en')) preferred = 'en';
-                    else preferred = 'cs';
+                    const browserLang = navigator.language || navigator.languages?.[0] || 'en';
+                    if (browserLang.startsWith('cs')) preferred = 'cs';
+                    else preferred = 'en';
                 }
             } catch(e) {}
 
