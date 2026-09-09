@@ -1,0 +1,26 @@
+{
+  "name": "Martin E-Games",
+  "short_name": "MG",
+  "description": "Android hry od Martina – BeatShift VR a Labyrint 3D VR",
+  "start_url": "https://martinegames.github.io/",
+  "display": "standalone",
+  "background_color": "#080808",
+  "theme_color": "#00ffff",
+  "icons": [
+    {
+      "src": "icon-72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
