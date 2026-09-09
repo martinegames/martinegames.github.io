@@ -3,8 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Martin E-Games | BeatShift &amp; Labyrint VR</title>
+    
+    <!-- ============================================================
+    ZÁKLADNÍ META TAGY
+    ============================================================ -->
+    <title>Martin E-Games | BeatShift VR &amp; Labyrint 3D VR</title>
+    <meta name="description" content="Bezplatné VR hry pro Android od nezávislého vývojáře. BeatShift VR a Labyrint 3D VR ke stažení zdarma.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://martinegames.github.io/">
+
+    <!-- ============================================================
+    PWA MANIFEST (uložení na domovskou obrazovku)
+    ============================================================ -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- ============================================================
+    JAZYKOVÉ ALTERNATIVY (hreflang) – pro vyhledávače
+    ============================================================ -->
+    <link rel="alternate" hreflang="cs" href="https://martinegames.github.io/?lang=cs">
+    <link rel="alternate" hreflang="en" href="https://martinegames.github.io/?lang=en">
+    <link rel="alternate" hreflang="x-default" href="https://martinegames.github.io/">
+
+    <!-- ============================================================
+    OPEN GRAPH (Facebook, LinkedIn, WhatsApp) – pro sociální sítě
+    ============================================================ -->
+    <meta property="og:title" content="Martin E-Games | BeatShift VR &amp; Labyrint 3D VR">
+    <meta property="og:description" content="Bezplatné VR hry pro Android od nezávislého vývojáře. Stažení zdarma.">
+    <meta property="og:image" content="https://martinegames.github.io/logo.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="https://martinegames.github.io/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="cs_CZ">
+    <meta property="og:locale:alternate" content="en_US">
+
+    <!-- ============================================================
+    TWITTER CARDS (X / Twitter)
+    ============================================================ -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Martin E-Games | BeatShift VR &amp; Labyrint 3D VR">
+    <meta name="twitter:description" content="Bezplatné VR hry pro Android od nezávislého vývojáře.">
+    <meta name="twitter:image" content="https://martinegames.github.io/logo.jpg">
+
+    <!-- ============================================================
+    STRUKTUROVANÁ DATA (JSON-LD) – pro vyhledávače
+    ============================================================ -->
+
+    <!-- 1. Základní informace o webu -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Martin E-Games",
+      "url": "https://martinegames.github.io/",
+      "description": "Bezplatné VR hry pro Android – BeatShift VR a Labyrint 3D VR",
+      "author": {
+        "@type": "Person",
+        "name": "Martin",
+        "email": "martinegames@centrum.cz"
+      },
+      "inLanguage": ["cs", "en"],
+      "applicationCategory": "Game"
+    }
+    </script>
+
+    <!-- 2. BeatShift VR – BEZ UVEDENÍ CENY (pouze popis) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "BeatShift VR",
+      "operatingSystem": "Android 7.0+",
+      "applicationCategory": "GameApplication",
+      "description": "Rytmická VR hra, která generuje úrovně podle vaší hudby. Zdarma ke stažení, s možností odemknout prémiové funkce v aplikaci."
+    }
+    </script>
+
+    <!-- 3. Labyrint 3D VR – BEZ UVEDENÍ CENY (pouze popis) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Labyrint 3D VR",
+      "operatingSystem": "Android 7.0+",
+      "applicationCategory": "GameApplication",
+      "description": "3D labyrint s VR podporou, multiplayer a 4 herní režimy. Zdarma ke stažení, s možností odemknout prémiové funkce v aplikaci."
+    }
+    </script>
+
+    <!-- ============================================================
+    PÍSMA (z Google Fonts)
+    ============================================================ -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&amp;family=Rajdhani:wght@300;500;700&amp;display=swap" rel="stylesheet">
+
+    <!-- ============================================================
+    CSS STYLY (VAŠE PŮVODNÍ – beze změny)
+    ============================================================ -->
     <style>
         :root {
             --neon-blue: #00ffff;
@@ -678,6 +772,58 @@
                 padding: 8px 10px;
             }
         }
+        
+        /* --- STYL PRO FILTR (přidáno) --- */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0 30px 0;
+            flex-wrap: wrap;
+            background: var(--glass);
+            padding: 15px 25px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .filter-container label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            color: #ccc;
+            letter-spacing: 1px;
+        }
+        .filter-container select {
+            background: #111;
+            color: #e0e0e0;
+            border: 1px solid var(--neon-blue);
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 16px;
+            min-width: 200px;
+            cursor: pointer;
+            outline: none;
+            transition: 0.3s;
+        }
+        .filter-container select:hover,
+        .filter-container select:focus {
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+        }
+        .filter-container select option {
+            background: #222;
+        }
+        @media (max-width: 600px) {
+            .filter-container {
+                flex-direction: column;
+                gap: 10px;
+                padding: 15px;
+            }
+            .filter-container select {
+                width: 100%;
+                min-width: unset;
+            }
+        }
     </style>
 </head>
 <body>
@@ -733,7 +879,7 @@
                     <div class="home-content">
                         <p data-key="home-p1">Všechny hry a projekty, které tady najdeš, vytvářím sám. Zaměřuji se na hry psané převážně v nativním kódu, abych dosáhl maximální optimalizace a plynulého chodu i na starších telefonech.</p>
                         <p data-key="home-p2">Kromě her sem postupně přidávám i užitečné návody – například <strong>jak si správně nastavit VR Box</strong>, aby zážitek z virtuální reality byl co nejlepší, nebo <strong>jak propojit Bluetooth ovladač pro Labyrint ve VR</strong>.</p>
-                        <p data-key="home-p3">V levém menu si jednoduše vyber – rozklikni si libovolnou hru a prohlédni si žebříčky, stažení nebo detailní informace. Sekce <strong>"Tipy a triky"</strong> je připravená pro všechny, kdo chtějí z VR zařízení vytěžit maximum – od nastavení ostření až po opravu opotřebované pěnové podložky.</p>
+                        <p data-key="home-p3">V menu (na počítači vlevo, na mobilu nahoře) si jednoduše vyber – rozklikni si libovolnou hru a prohlédni si žebříčky, stažení nebo detailní informace. Sekce <strong>"Tipy a triky"</strong> je připravená pro všechny, kdo chtějí z VR zařízení vytěžit maximum – od nastavení ostření až po opravu opotřebované pěnové podložky.</p>
                         <p data-key="home-p4">Pokud se chceš dozvědět víc o mně, klikni na <strong>"O mně"</strong>.</p>
                     </div>
                 </section>
@@ -810,18 +956,26 @@
 
                 <!-- SÍŇ SLÁVY -->
                 <section id="leaderboards-beatshift" class="active">
+                    <!-- PŘIDANÝ FILTR -->
+                    <div class="filter-container">
+                        <label for="trackFilter" data-key="filter-label">🔍 Filtr podle skladby:</label>
+                        <select id="trackFilter" onchange="applyTrackFilter()">
+                            <option value="all" data-key="filter-all">Všechny skladby</option>
+                            <!-- Další možnosti se naplní dynamicky z dat -->
+                        </select>
+                    </div>
                     <div class="leaderboards-grid">
                         <div class="board-card easy">
                             <h2 data-key="beatshift-diff-easy">EASY</h2>
-                            <table><tbody id="data-easy"><tr class="top-row"><td class="rank-cell">1. 🥇</td><td><strong>Martin</strong><span class="track-info">Artist-Session1_Track14</span></td><td class="score-cell">1&nbsp;010</td></tr><tr class="top-row"><td class="rank-cell">2. 🥈</td><td><strong>Martin</strong><span class="track-info">Artist-Session1_Track14</span></td><td class="score-cell">1&nbsp;000</td></tr><tr class="top-row"><td class="rank-cell">3. 🥉</td><td><strong>TestHrac</strong><span class="track-info">TestSong</span></td><td class="score-cell">999</td></tr><tr class="gap-row"><td colspan="3"></td></tr><tr class=""><td class="rank-cell">4.</td><td><strong>TestHrac</strong><span class="track-info">TestSong</span></td><td class="score-cell">999</td></tr><tr class=""><td class="rank-cell">5.</td><td><strong>TestHrac</strong><span class="track-info">TestSong</span></td><td class="score-cell">999</td></tr><tr class=""><td class="rank-cell">6.</td><td><strong>TestHrac</strong><span class="track-info">TestSong</span></td><td class="score-cell">999</td></tr><tr class=""><td class="rank-cell">7.</td><td><strong>TestHrac</strong><span class="track-info">TestSong</span></td><td class="score-cell">999</td></tr><tr class=""><td class="rank-cell">8.</td><td><strong>TestHrac</strong><span class="track-info">TestSong</span></td><td class="score-cell">999</td></tr><tr class=""><td class="rank-cell">9.</td><td><strong>TestHrac</strong><span class="track-info">TestSong</span></td><td class="score-cell">999</td></tr><tr class=""><td class="rank-cell">10.</td><td><strong>TestHrac</strong><span class="track-info">TestSong</span></td><td class="score-cell">999</td></tr><tr class=""><td class="rank-cell">11.</td><td><strong>TestHrac</strong><span class="track-info">TestSong</span></td><td class="score-cell">999</td></tr><tr class=""><td class="rank-cell">12.</td><td><strong>TestHrac</strong><span class="track-info">TestSong</span></td><td class="score-cell">999</td></tr><tr class=""><td class="rank-cell">13.</td><td><strong>Martin</strong><span class="track-info">Vzpomeneš si</span></td><td class="score-cell">0</td></tr></tbody></table>
+                            <table><tbody id="data-easy"><tr><td colspan="3" style="text-align:center;color:#888;">Načítám...</td></tr></tbody></table>
                         </div>
                         <div class="board-card medium">
                             <h2 data-key="beatshift-diff-medium">NORMAL</h2>
-                            <table><tbody id="data-med"><tr class="top-row"><td class="rank-cell">1. 🥇</td><td><strong>m</strong><span class="track-info">20 Scooter - Weekend</span></td><td class="score-cell">4&nbsp;360</td></tr><tr class="top-row"><td class="rank-cell">2. 🥈</td><td><strong>Martin</strong><span class="track-info">Vzorná_Holka</span></td><td class="score-cell">3&nbsp;830</td></tr><tr class="top-row"><td class="rank-cell">3. 🥉</td><td><strong>m</strong><span class="track-info">yt1s.com - The Offspring  Pretty Fly For A White Guy Official Music Video</span></td><td class="score-cell">2&nbsp;500</td></tr><tr class="gap-row"><td colspan="3"></td></tr><tr class=""><td class="rank-cell">4.</td><td><strong>m</strong><span class="track-info">yt1s.com - The Offspring  Pretty Fly For A White Guy Official Music Video</span></td><td class="score-cell">2&nbsp;500</td></tr><tr class=""><td class="rank-cell">5.</td><td><strong>Martin</strong><span class="track-info">ukazka</span></td><td class="score-cell">130</td></tr><tr class=""><td class="rank-cell">6.</td><td><strong>Martin</strong><span class="track-info">ukazka</span></td><td class="score-cell">130</td></tr><tr class=""><td class="rank-cell">7.</td><td><strong>Martin</strong><span class="track-info">ukazka</span></td><td class="score-cell">130</td></tr><tr class=""><td class="rank-cell">8.</td><td><strong>Martin</strong><span class="track-info">ukazka</span></td><td class="score-cell">130</td></tr></tbody></table>
+                            <table><tbody id="data-med"><tr><td colspan="3" style="text-align:center;color:#888;">Načítám...</td></tr></tbody></table>
                         </div>
                         <div class="board-card hard">
                             <h2 data-key="beatshift-diff-hard">HARD</h2>
-                            <table><tbody id="data-hard"><tr class="top-row"><td class="rank-cell">1. 🥇</td><td><strong>Martin</strong><span class="track-info">Vzpomeneš si</span></td><td class="score-cell">3&nbsp;160</td></tr><tr class="top-row"><td class="rank-cell">2. 🥈</td><td><strong>Martin</strong><span class="track-info">Vzpomeneš si</span></td><td class="score-cell">3&nbsp;160</td></tr><tr class="top-row"><td class="rank-cell">3. 🥉</td><td><strong>Martin</strong><span class="track-info">Vzpomeneš si</span></td><td class="score-cell">3&nbsp;160</td></tr><tr class="gap-row"><td colspan="3"></td></tr></tbody></table>
+                            <table><tbody id="data-hard"><tr><td colspan="3" style="text-align:center;color:#888;">Načítám...</td></tr></tbody></table>
                         </div>
                     </div>
                 </section>
@@ -838,7 +992,7 @@
                             <p><strong data-key="beatshift-tech-os">Podporované OS:</strong> <span data-key="beatshift-tech-os-text">Android 7.0 (Nougat) až Android 16.</span></p>
                             <p><strong data-key="beatshift-tech-control">Ovládání:</strong> <span data-key="beatshift-tech-control-text">Hra využívá Gyroskop vašeho telefonu.</span></p>
                             <p><strong data-key="beatshift-tech-modes">Režimy:</strong> <span data-key="beatshift-tech-modes-text">Plná podpora VR (Cardboard) i klasického režimu bez brýlí.</span></p>
-                            <p><strong data-key="beatshift-tech-langs">Podporované jazyky:</strong> <span data-key="beatshift-tech-langs-text">Čeština, Angličtina, Němčina, Portugalština, Španělština, Slovenština, Polština, Ukrajinština, Ruština.</span></p>
+                            <p><strong data-key="beatshift-tech-langs">Podporované jazyky:</strong> <span data-key="beatshift-tech-langs-text">Čeština, Angličtina, Němčina, Španělština, Francouzština, Polština, Portugalština, Brazilská portugalština, Slovenština, Ruština, Ukrajinština, Hindština, Indonéština, Vietnamština, Japonština, Korejština, Zjednodušená čínština.</span></p>
 
                             <h3 data-key="beatshift-safety-title">Bezpečnost a věk</h3>
                             <p data-key="beatshift-safety-age">Doporučený věk: 12+ (vzhledem k použití VR technologie a intenzivním vizuálním efektům).</p>
@@ -880,7 +1034,7 @@
                             <h2 data-key="beatshift-ready-title">PŘIPRAVEN KE STARTU?</h2>
                             <p data-key="beatshift-ready-desc">Stáhni si nejnovější verzi přímo od vývojáře.</p>
                             <br>
-                            <a href="ODKAZ_NA_TVOJE_APK_SOUBOR_BUDE_ZDE" class="btn-download" data-key="beatshift-btn-download">STÁHNOUT APK</a>
+                            <a href="ODKAZ_NA_TVOJE_APK_SOUBOR_BUDE_ZDE" class="btn-download" onclick="return logDownload('BeatShift VR');" data-key="beatshift-btn-download">STÁHNOUT APK</a>
                             <p style="margin-top:20px; font-size:0.8em; color:#888;"><span data-key="beatshift-version-label">Verze</span> 1.0.4 | <span data-key="beatshift-size-label">Velikost</span>: cca 45 MB</p>
                         </div>
                     </div>
@@ -919,7 +1073,7 @@
                             <p><strong data-key="labyrint-tech-os">Podporované OS:</strong> <span data-key="labyrint-tech-os-text">Android 7.0 (Nougat) až Android 16.</span></p>
                             <p><strong data-key="labyrint-tech-control">Ovládání:</strong> <span data-key="labyrint-tech-control-text">Dotyk (levý/pravý prst) nebo Gamepad pro VR.</span></p>
                             <p><strong data-key="labyrint-tech-modes">Režimy:</strong> <span data-key="labyrint-tech-modes-text">Závod, Plížení, Hledání pokladů, Multiplayer přes Bluetooth.</span></p>
-                            <p><strong data-key="labyrint-tech-langs">Podporované jazyky:</strong> <span data-key="labyrint-tech-langs-text">Čeština, Angličtina, Němčina, Portugalština, Španělština, Slovenština, Polština, Ukrajinština, Ruština.</span></p>
+                            <p><strong data-key="labyrint-tech-langs">Podporované jazyky:</strong> <span data-key="labyrint-tech-langs-text">Čeština, Angličtina, Němčina, Španělština, Francouzština, Polština, Portugalština, Brazilská portugalština, Slovenština, Ruština, Ukrajinština, Hindština, Indonéština, Vietnamština, Japonština, Korejština, Zjednodušená čínština.</span></p>
 
                             <h3 data-key="labyrint-safety-title">Bezpečnost a věk</h3>
                             <p data-key="labyrint-safety-age">Doporučený věk: 12+ (vzhledem k použití VR technologie a intenzivním vizuálním efektům).</p>
@@ -970,7 +1124,7 @@
                             <h2 data-key="labyrint-ready-title">PŘIPRAVEN KE STARTU?</h2>
                             <p data-key="labyrint-ready-desc">Stáhni si nejnovější verzi přímo od vývojáře.</p>
                             <br>
-                            <a href="ODKAZ_NA_APK_LABYRINT" class="btn-download" data-key="labyrint-btn-download">STÁHNOUT APK</a>
+                            <a href="ODKAZ_NA_APK_LABYRINT" class="btn-download" onclick="return logDownload('Labyrint 3D VR');" data-key="labyrint-btn-download">STÁHNOUT APK</a>
                             <p style="margin-top:20px; font-size:0.8em; color:#888;"><span data-key="labyrint-version-label">Verze</span> 1.0.0 | <span data-key="labyrint-size-label">Velikost</span>: cca 35 MB</p>
                         </div>
                     </div>
@@ -1116,6 +1270,8 @@
 
         let currentGame = 'home';
         let currentLang = 'cs';
+        let allData = [];          // pro uložení všech načtených dat
+        let currentFilter = 'all'; // aktuální filtr
 
         // ==========================================
         // PŘEKLADOVÝ SLOVNÍK
@@ -1136,8 +1292,8 @@
                 "home-title": "Vítej na mé stránce\ns Android hrami",
                 "home-p1": "Všechny hry a projekty, které tady najdeš, vytvářím sám. Zaměřuji se na hry psané převážně v nativním kódu, abych dosáhl maximální optimalizace a plynulého chodu i na starších telefonech.",
                 "home-p2": "Kromě her sem postupně přidávám i užitečné návody – například jak si správně nastavit VR Box, aby zážitek z virtuální reality byl co nejlepší, nebo jak propojit Bluetooth ovladač pro Labyrint ve VR.",
-                "home-p3": "V levém menu si jednoduše vyber – rozklikni si libovolnou hru a prohlédni si žebříčky, stažení nebo detailní informace. Sekce Tipy a triky je připravená pro všechny, kdo chtějí z VR zařízení vytěžit maximum – od nastavení ostření až po opravu opotřebované pěnové podložky.",
-                "home-p4": "Pokud se chceš dozvědět víc o mně, klikni na O mně.",
+                "home-p3": "V menu (na počítači vlevo, na mobilu nahoře) si jednoduše vyber – rozklikni si libovolnou hru a prohlédni si žebříčky, stažení nebo detailní informace. Sekce \"Tipy a triky\" je připravená pro všechny, kdo chtějí z VR zařízení vytěžit maximum – od nastavení ostření až po opravu opotřebované pěnové podložky.",
+                "home-p4": "Pokud se chceš dozvědět víc o mně, klikni na \"O mně\".",
 
                 // About
                 "about-title": "O mně",
@@ -1180,7 +1336,7 @@
                 "beatshift-tech-modes": "Režimy:",
                 "beatshift-tech-modes-text": "Plná podpora VR (Cardboard) i klasického režimu bez brýlí.",
                 "beatshift-tech-langs": "Podporované jazyky:",
-                "beatshift-tech-langs-text": "Čeština, Angličtina, Němčina, Portugalština, Španělština, Slovenština, Polština, Ukrajinština, Ruština.",
+                "beatshift-tech-langs-text": "Čeština, Angličtina, Němčina, Španělština, Francouzština, Polština, Portugalština, Brazilská portugalština, Slovenština, Ruština, Ukrajinština, Hindština, Indonéština, Vietnamština, Japonština, Korejština, Zjednodušená čínština.",
                 "beatshift-safety-title": "Bezpečnost a věk",
                 "beatshift-safety-age": "Doporučený věk: 12+ (vzhledem k použití VR technologie a intenzivním vizuálním efektům).",
                 "beatshift-safety-virus": "Tato aplikace není virus. Neobsahuje žádný škodlivý kód a nevyžaduje přístup k vašim soukromým datům (pouze přístup k hudebním souborům, které si sami vyberete ke hře).",
@@ -1220,7 +1376,7 @@
                 "labyrint-tech-modes": "Režimy:",
                 "labyrint-tech-modes-text": "Závod, Plížení, Hledání pokladů, Multiplayer přes Bluetooth.",
                 "labyrint-tech-langs": "Podporované jazyky:",
-                "labyrint-tech-langs-text": "Čeština, Angličtina, Němčina, Portugalština, Španělština, Slovenština, Polština, Ukrajinština, Ruština.",
+                "labyrint-tech-langs-text": "Čeština, Angličtina, Němčina, Španělština, Francouzština, Polština, Portugalština, Brazilská portugalština, Slovenština, Ruština, Ukrajinština, Hindština, Indonéština, Vietnamština, Japonština, Korejština, Zjednodušená čínština.",
                 "labyrint-safety-title": "Bezpečnost a věk",
                 "labyrint-safety-age": "Doporučený věk: 12+ (vzhledem k použití VR technologie a intenzivním vizuálním efektům).",
                 "labyrint-safety-virus": "Tato aplikace není virus. Neobsahuje žádný škodlivý kód a nevyžaduje přístup k vašim soukromým datům.",
@@ -1301,7 +1457,12 @@
                 "tips-6-how-li3": "Pokud je zařízení na hranici limitu, hra vám umožní generování zkusit – existuje šance, že to na vašem telefonu přece jen poběží.",
                 "tips-6-mean-title": "Co to znamená pro vás?",
                 "tips-6-mean-li1": "Pokud vám generování videa nefunguje, není to chyba hry – je to ochrana vašeho zařízení.",
-                "tips-6-mean-li2": "Můžete to zkusit na výkonnějším telefonu, pokud ho máte k dispozici."
+                "tips-6-mean-li2": "Můžete to zkusit na výkonnějším telefonu, pokud ho máte k dispozici.",
+                
+                // FILTR (přidáno)
+                "filter-label": "🔍 Filtr podle skladby:",
+                "filter-all": "Všechny skladby",
+                "filter-loading": "Načítám..."
             },
             en: {
                 // Menu
@@ -1318,7 +1479,7 @@
                 "home-title": "Welcome to my\nAndroid games page",
                 "home-p1": "All games and projects you find here are created by me. I focus on games written primarily in native code to achieve maximum optimization and smooth performance even on older phones.",
                 "home-p2": "Besides games, I gradually add useful guides – for example how to properly set up your VR Box for the best virtual reality experience, or how to connect a Bluetooth controller for Labyrint in VR.",
-                "home-p3": "Simply choose from the left menu – click on any game to view leaderboards, download, or detailed information. The Tips & Tricks section is ready for everyone who wants to get the most out of their VR device – from focus adjustment to repairing worn-out foam padding.",
+                "home-p3": "Simply choose from the menu (on the left on desktop, on top on mobile) – click on any game to view leaderboards, download, or detailed information. The Tips & Tricks section is ready for everyone who wants to get the most out of their VR device – from focus adjustment to repairing worn-out foam padding.",
                 "home-p4": "If you want to learn more about me, click on About Me.",
 
                 // About
@@ -1362,7 +1523,7 @@
                 "beatshift-tech-modes": "Modes:",
                 "beatshift-tech-modes-text": "Full support for VR (Cardboard) and classic mobile mode.",
                 "beatshift-tech-langs": "Supported languages:",
-                "beatshift-tech-langs-text": "Czech, English, German, Portuguese, Spanish, Slovak, Polish, Ukrainian, Russian.",
+                "beatshift-tech-langs-text": "Czech, English, German, Spanish, French, Polish, Portuguese, Brazilian Portuguese, Slovak, Russian, Ukrainian, Hindi, Indonesian, Vietnamese, Japanese, Korean, Simplified Chinese.",
                 "beatshift-safety-title": "Safety and Age",
                 "beatshift-safety-age": "Recommended age: 12+ (due to VR technology and intense visual effects).",
                 "beatshift-safety-virus": "This app is not a virus. It contains no harmful code and does not access your private data (only access to music files you choose for the game).",
@@ -1402,7 +1563,7 @@
                 "labyrint-tech-modes": "Modes:",
                 "labyrint-tech-modes-text": "Race, Stealth, Treasure Hunt, Multiplayer via Bluetooth.",
                 "labyrint-tech-langs": "Supported languages:",
-                "labyrint-tech-langs-text": "Czech, English, German, Portuguese, Spanish, Slovak, Polish, Ukrainian, Russian.",
+                "labyrint-tech-langs-text": "Czech, English, German, Spanish, French, Polish, Portuguese, Brazilian Portuguese, Slovak, Russian, Ukrainian, Hindi, Indonesian, Vietnamese, Japanese, Korean, Simplified Chinese.",
                 "labyrint-safety-title": "Safety and Age",
                 "labyrint-safety-age": "Recommended age: 12+ (due to VR technology and intense visual effects).",
                 "labyrint-safety-virus": "This app is not a virus. It contains no harmful code and does not access your private data.",
@@ -1483,7 +1644,12 @@
                 "tips-6-how-li3": "If the device is on the edge of the limit, the game will let you try – there's a chance it might work on your phone after all.",
                 "tips-6-mean-title": "What does this mean for you?",
                 "tips-6-mean-li1": "If video generation doesn't work for you, it's not a bug – it's protection for your device.",
-                "tips-6-mean-li2": "You can try it on a more powerful phone if you have one available."
+                "tips-6-mean-li2": "You can try it on a more powerful phone if you have one available.",
+                
+                // FILTR (přidáno)
+                "filter-label": "🔍 Filter by track:",
+                "filter-all": "All tracks",
+                "filter-loading": "Loading..."
             }
         };
 
@@ -1513,6 +1679,88 @@
                     }
                 }
             });
+            
+            // Aktualizovat i filtr (select)
+            updateFilterLabels();
+        }
+        
+        // ==========================================
+        // FUNKCE PRO FILTR
+        // ==========================================
+        
+        function populateTrackFilter(data) {
+            const select = document.getElementById('trackFilter');
+            if (!select) return;
+            
+            // Získat unikátní názvy skladeb
+            const tracks = new Set();
+            data.forEach(item => {
+                if (item.track) tracks.add(item.track);
+            });
+            
+            // Seřadit abecedně
+            const sortedTracks = Array.from(tracks).sort();
+            
+            // Zachovat první položku "Všechny skladby"
+            const firstOption = select.options[0];
+            select.innerHTML = '';
+            select.appendChild(firstOption);
+            
+            // Přidat skladby
+            sortedTracks.forEach(track => {
+                const option = document.createElement('option');
+                option.value = track;
+                option.textContent = track;
+                select.appendChild(option);
+            });
+            
+            // Obnovit aktuální filtr
+            if (currentFilter !== 'all' && sortedTracks.includes(currentFilter)) {
+                select.value = currentFilter;
+            } else {
+                select.value = 'all';
+                currentFilter = 'all';
+            }
+            
+            // Aktualizovat popisky
+            updateFilterLabels();
+        }
+        
+        function updateFilterLabels() {
+            const select = document.getElementById('trackFilter');
+            if (!select) return;
+            
+            // Aktualizovat první položku podle jazyka
+            const firstOption = select.options[0];
+            if (firstOption) {
+                firstOption.textContent = translations[currentLang]['filter-all'] || 'Všechny skladby';
+            }
+            
+            // Aktualizovat label
+            const label = document.querySelector('label[for="trackFilter"]');
+            if (label) {
+                label.textContent = translations[currentLang]['filter-label'] || '🔍 Filtr podle skladby:';
+            }
+        }
+        
+        function applyTrackFilter() {
+            const select = document.getElementById('trackFilter');
+            if (!select) return;
+            
+            currentFilter = select.value;
+            
+            if (allData.length === 0) return;
+            
+            // Filtrovat data
+            let filteredData = allData;
+            if (currentFilter !== 'all') {
+                filteredData = allData.filter(item => item.track === currentFilter);
+            }
+            
+            // Překreslit tabulky
+            renderTable(filteredData, "Easy", "data-easy");
+            renderTable(filteredData, "Medium", "data-med");
+            renderTable(filteredData, "Hard", "data-hard");
         }
 
         // ==========================================
@@ -1595,21 +1843,31 @@
             try {
                 const response = await fetch(SCRIPT_URL);
                 const data = await response.json();
-                renderTable(data, "Easy", "data-easy");
-                renderTable(data, "Medium", "data-med");
-                renderTable(data, "Hard", "data-hard");
+                allData = data; // uložit pro filtr
+                
+                // Naplnit filtr
+                populateTrackFilter(data);
+                
+                // Zobrazit data (s ohledem na aktuální filtr)
+                applyTrackFilter();
             } catch (e) {
                 console.error("Data error:", e);
+                // Zobrazit chybovou zprávu v tabulkách
+                ['data-easy', 'data-med', 'data-hard'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.innerHTML = '<tr><td colspan="3" style="text-align:center;color:#ff4444;">Chyba načítání dat</td></tr>';
+                });
             }
         }
 
-        function renderTable(allData, diff, elementId) {
+        function renderTable(filteredData, diff, elementId) {
             const container = document.getElementById(elementId);
             if (!container) return;
-            const filtered = allData.filter(i => i.diff === diff).sort((a, b) => b.score - a.score).slice(0, 20);
+            
+            const filtered = filteredData.filter(i => i.diff === diff).sort((a, b) => b.score - a.score).slice(0, 20);
             let html = "";
             if (filtered.length === 0) {
-                html = "<tr><td colspan='3' style='text-align:center;color:#888;'>No data yet</td></tr>";
+                html = "<tr><td colspan='3' style='text-align:center;color:#888;'>Žádné výsledky</td></tr>";
             } else {
                 filtered.forEach((item, index) => {
                     const rank = index + 1;
@@ -1637,6 +1895,19 @@
         document.addEventListener('keydown', function(e) {
             if (e.key === "Escape") closeImage();
         });
+
+        // ==========================================
+        // ZMĚNA: LOGOVÁNÍ STAŽENÍ (pouze čas + hra)
+        // ==========================================
+        const DOWNLOAD_STATS_URL = "https://script.google.com/macros/s/AKfycbxbm0X6wOi1YH-gGQsX6jmSzTfHfxAuXWuaxqCN6JG9LudCa5bbuOiCKhy4OqgjLlSUNA/exec";
+
+        function logDownload(gameName) {
+            fetch(DOWNLOAD_STATS_URL + "?action=log&game=" + encodeURIComponent(gameName), {
+                method: "GET",
+                mode: "no-cors"
+            }).catch(() => {});
+            return true;
+        }
 
         // ==========================================
         // INICIALIZACE – DETEKCE PŘÍCHODU
