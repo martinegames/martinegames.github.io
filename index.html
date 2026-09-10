@@ -97,7 +97,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&amp;family=Rajdhani:wght@300;500;700&amp;display=swap" rel="stylesheet">
 
     <!-- ============================================================
-    CSS STYLY (VAŠE PŮVODNÍ – beze změny)
+    CSS STYLY
     ============================================================ -->
     <style>
         :root {
@@ -773,7 +773,7 @@
             }
         }
         
-        /* --- STYL PRO FILTR (přidáno) --- */
+        /* --- STYL PRO FILTR --- */
         .filter-container {
             display: flex;
             justify-content: center;
@@ -822,6 +822,211 @@
             .filter-container select {
                 width: 100%;
                 min-width: unset;
+            }
+        }
+
+        /* --- HUDBA KE STAŽENÍ (NOVÉ) --- */
+        .music-content {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .music-intro {
+            font-size: 1.1em;
+            color: #ddd;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Jak to funguje */
+        .how-to-box {
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-left: 4px solid var(--neon-blue);
+            border-radius: 15px;
+            padding: 25px 30px;
+            margin-bottom: 40px;
+        }
+        .how-to-box h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-blue);
+            margin-top: 0;
+            font-size: 20px;
+        }
+        .how-to-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .how-to-step {
+            text-align: center;
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+        }
+        .step-num {
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            margin: 0 auto 10px auto;
+            border-radius: 50%;
+            background: var(--neon-blue);
+            color: black;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+        .how-to-step p {
+            margin: 0;
+            color: #ccc;
+            font-size: 0.95em;
+        }
+
+        /* Doplňující poznámka pod kroky */
+        .music-note {
+            margin-top: 25px;
+            padding: 18px 22px;
+            background: rgba(0, 255, 255, 0.05);
+            border-left: 4px solid var(--neon-blue);
+            border-radius: 10px;
+            color: #ddd;
+            font-size: 0.98em;
+        }
+        .music-note p {
+            margin: 0;
+        }
+
+        /* Karty skladeb */
+        .music-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        .music-card {
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .music-card:hover {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 25px rgba(0,255,255,0.2);
+            transform: translateY(-3px);
+        }
+        .music-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 10px var(--neon-blue));
+        }
+        .music-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-blue);
+            font-size: 22px;
+            margin: 10px 0 25px 0;
+            letter-spacing: 2px;
+        }
+        .btn-music {
+            display: block;
+            width: 100%;
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 12px 20px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: 0.3s;
+            cursor: pointer;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .btn-music:hover {
+            background: var(--neon-blue);
+            color: black;
+            box-shadow: 0 0 25px var(--neon-blue);
+        }
+        .btn-music.playing {
+            background: var(--neon-pink);
+            border-color: var(--neon-pink);
+            color: black;
+            box-shadow: 0 0 25px var(--neon-pink);
+        }
+        .btn-music.btn-download-music {
+            border-color: var(--neon-pink);
+            color: var(--neon-pink);
+            margin-bottom: 0;
+        }
+        .btn-music.btn-download-music:hover {
+            background: var(--neon-pink);
+            color: black;
+            box-shadow: 0 0 25px var(--neon-pink);
+        }
+
+        /* Tipy */
+        .music-tips {
+            background: var(--glass);
+            border-left: 4px solid var(--neon-pink);
+            border-radius: 15px;
+            padding: 25px 30px;
+            margin-bottom: 40px;
+        }
+        .music-tips h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-pink);
+            margin-top: 0;
+            font-size: 20px;
+        }
+        .music-tips ul {
+            color: #ccc;
+            padding-left: 20px;
+            margin: 0;
+        }
+        .music-tips ul li {
+            margin-bottom: 8px;
+        }
+
+        /* CTA box */
+        .music-cta {
+            text-align: center;
+            padding: 40px 30px;
+            background: var(--glass);
+            border: 2px solid var(--neon-blue);
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+        .music-cta h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: white;
+            margin-top: 0;
+            font-size: 24px;
+            text-shadow: 0 0 15px var(--neon-blue);
+        }
+        .music-cta p {
+            color: #ccc;
+            margin-bottom: 25px;
+        }
+
+        /* AI poznámka */
+        .music-ai-note {
+            text-align: center;
+            font-size: 0.8em;
+            color: #666;
+            font-style: italic;
+            margin-top: 20px;
+        }
+
+        /* Responzivní */
+        @media (max-width: 800px) {
+            .how-to-steps {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -949,6 +1154,7 @@
                 <nav>
                     <button onclick="showSection('leaderboards-beatshift')" id="btn-leaderboards-beatshift" class="active" data-key="beatshift-nav-leaderboards">SÍŇ SLÁVY</button>
                     <button onclick="showSection('info-beatshift')" id="btn-info-beatshift" data-key="beatshift-nav-info">O HŘE / STÁHNOUT</button>
+                    <button onclick="showSection('music-beatshift')" id="btn-music-beatshift" data-key="beatshift-nav-music">🎵 HUDBA KE STAŽENÍ</button>
                 </nav>
             </header>
 
@@ -1037,6 +1243,77 @@
                             <a href="ODKAZ_NA_TVOJE_APK_SOUBOR_BUDE_ZDE" class="btn-download" onclick="return logDownload('BeatShift VR');" data-key="beatshift-btn-download">STÁHNOUT APK</a>
                             <p style="margin-top:20px; font-size:0.8em; color:#888;"><span data-key="beatshift-version-label">Verze</span> 1.0.4 | <span data-key="beatshift-size-label">Velikost</span>: cca 45 MB</p>
                         </div>
+                    </div>
+                </section>
+
+                <!-- HUDBA KE STAŽENÍ (NOVÉ) -->
+                <section id="music-beatshift">
+                    <div class="music-content">
+                        <p class="music-intro" data-key="music-intro">BeatShift umí zpracovat jakoukoli vlastní MP3, kterou máš v telefonu. Pokud ale žádnou hudbu nevlastníš, můžeš si vyzkoušet tyto skladby – jsou volně ke stažení a připravené přímo pro hru.</p>
+
+                        <div class="how-to-box">
+                            <h3 data-key="music-howto-title">📥 Jak to funguje</h3>
+                            <div class="how-to-steps">
+                                <div class="how-to-step">
+                                    <div class="step-num">1</div>
+                                    <p data-key="music-howto-1">Stáhni si MP3 kliknutím na tlačítko u skladby.</p>
+                                </div>
+                                <div class="how-to-step">
+                                    <div class="step-num">2</div>
+                                    <p data-key="music-howto-2">Ulož si staženou MP3 do telefonu – klidně do složky Download.</p>
+                                </div>
+                                <div class="how-to-step">
+                                    <div class="step-num">3</div>
+                                    <p data-key="music-howto-3">Ve hře při výběru hudby otevři složku Download, najdi svou písničku a vyber ji.</p>
+                                </div>
+                            </div>
+                            <div class="music-note">
+                                <p data-key="music-howto-note">Hra si ji sama načte, vytvoří podle ní překážky a můžeš hrát. Nic složitého – BeatShift tě vším provede krok za krokem.</p>
+                            </div>
+                        </div>
+
+                        <div class="music-grid">
+                            <!-- SKLADBA 1 -->
+                            <div class="music-card">
+                                <div class="music-icon">🎵</div>
+                                <h3>BeatShift_1</h3>
+                                <button class="btn-music" onclick="togglePlay(this, 'BeatShift_1.mp3')" data-key="music-btn-play">▶ PŘEHRÁT</button>
+                                <a href="BeatShift_1.mp3" download class="btn-music btn-download-music" onclick="return logDownload('BeatShift_1');" data-key="music-btn-download">⬇ STÁHNOUT MP3</a>
+                            </div>
+
+                            <!-- SKLADBA 2 -->
+                            <div class="music-card">
+                                <div class="music-icon">🎵</div>
+                                <h3>BeatShift_2</h3>
+                                <button class="btn-music" onclick="togglePlay(this, 'BeatShift_2.mp3')" data-key="music-btn-play">▶ PŘEHRÁT</button>
+                                <a href="BeatShift_2.mp3" download class="btn-music btn-download-music" onclick="return logDownload('BeatShift_2');" data-key="music-btn-download">⬇ STÁHNOUT MP3</a>
+                            </div>
+
+                            <!-- SKLADBA 3 -->
+                            <div class="music-card">
+                                <div class="music-icon">🎵</div>
+                                <h3>BeatShift_3</h3>
+                                <button class="btn-music" onclick="togglePlay(this, 'BeatShift_3.mp3')" data-key="music-btn-play">▶ PŘEHRÁT</button>
+                                <a href="BeatShift_3.mp3" download class="btn-music btn-download-music" onclick="return logDownload('BeatShift_3');" data-key="music-btn-download">⬇ STÁHNOUT MP3</a>
+                            </div>
+                        </div>
+
+                        <div class="music-tips">
+                            <h3 data-key="music-tips-title">💡 Tipy</h3>
+                            <ul>
+                                <li data-key="music-tip-1">Chceš víc hudby? Použij vlastní MP3 z telefonu – BeatShift si s nimi poradí stejně dobře.</li>
+                                <li data-key="music-tip-2">Hraje ti hudba potichu? Zkontroluj hlasitost v telefonu i ve hře.</li>
+                                <li data-key="music-tip-3">Po dohrání levelu můžeš kliknout na „Sdílet skóre" a nahrát výsledek na žebříček.</li>
+                            </ul>
+                        </div>
+
+                        <div class="music-cta">
+                            <h3 data-key="music-cta-title">PŘIPRAVEN KE STARTU?</h3>
+                            <p data-key="music-cta-desc">Stáhl jsi hudbu? Teď si stáhni i hru a vyraz do rytmu.</p>
+                            <a href="ODKAZ_NA_TVOJE_APK_SOUBOR_BUDE_ZDE" class="btn-download" onclick="return logDownload('BeatShift VR');" data-key="music-cta-btn">STÁHNOUT BEATSHIFT VR</a>
+                        </div>
+
+                        <p class="music-ai-note" data-key="music-ai-note">Hudba na této stránce je generována pomocí AI nástrojů.</p>
                     </div>
                 </section>
 
@@ -1260,6 +1537,11 @@
     </div>
 
     <!-- ==========================================
+    SKRYTÝ AUDIO PŘEHRÁVAČ (NOVÉ)
+    ========================================== -->
+    <audio id="musicPlayer" preload="none"></audio>
+
+    <!-- ==========================================
     JAVASCRIPT
     ========================================== -->
     <script>
@@ -1272,6 +1554,9 @@
         let currentLang = 'cs';
         let allData = [];          // pro uložení všech načtených dat
         let currentFilter = 'all'; // aktuální filtr
+
+        // Pro hudební přehrávač
+        let currentlyPlayingBtn = null;
 
         // ==========================================
         // PŘEKLADOVÝ SLOVNÍK
@@ -1324,6 +1609,7 @@
                 "beatshift-slogan": "Tvoje hudba, Tvoje hra",
                 "beatshift-nav-leaderboards": "SÍŇ SLÁVY",
                 "beatshift-nav-info": "O HŘE / STÁHNOUT",
+                "beatshift-nav-music": "🎵 HUDBA KE STAŽENÍ",
                 "beatshift-diff-easy": "EASY",
                 "beatshift-diff-medium": "NORMAL",
                 "beatshift-diff-hard": "HARD",
@@ -1362,6 +1648,25 @@
                 "beatshift-btn-download": "STÁHNOUT APK",
                 "beatshift-version-label": "Verze",
                 "beatshift-size-label": "Velikost",
+
+                // BeatShift – HUDBA
+                "music-intro": "BeatShift umí zpracovat jakoukoli vlastní MP3, kterou máš v telefonu. Pokud ale žádnou hudbu nevlastníš, můžeš si vyzkoušet tyto skladby – jsou volně ke stažení a připravené přímo pro hru.",
+                "music-howto-title": "📥 Jak to funguje",
+                "music-howto-1": "Stáhni si MP3 kliknutím na tlačítko u skladby.",
+                "music-howto-2": "Ulož si staženou MP3 do telefonu – klidně do složky Download.",
+                "music-howto-3": "Ve hře při výběru hudby otevři složku Download, najdi svou písničku a vyber ji.",
+                "music-howto-note": "Hra si ji sama načte, vytvoří podle ní překážky a můžeš hrát. Nic složitého – BeatShift tě vším provede krok za krokem.",
+                "music-btn-play": "▶ PŘEHRÁT",
+                "music-btn-pause": "⏸ PAUZA",
+                "music-btn-download": "⬇ STÁHNOUT MP3",
+                "music-tips-title": "💡 Tipy",
+                "music-tip-1": "Chceš víc hudby? Použij vlastní MP3 z telefonu – BeatShift si s nimi poradí stejně dobře.",
+                "music-tip-2": "Hraje ti hudba potichu? Zkontroluj hlasitost v telefonu i ve hře.",
+                "music-tip-3": "Po dohrání levelu můžeš kliknout na „Sdílet skóre\" a nahrát výsledek na žebříček.",
+                "music-cta-title": "PŘIPRAVEN KE STARTU?",
+                "music-cta-desc": "Stáhl jsi hudbu? Teď si stáhni i hru a vyraz do rytmu.",
+                "music-cta-btn": "STÁHNOUT BEATSHIFT VR",
+                "music-ai-note": "Hudba na této stránce je generována pomocí AI nástrojů.",
 
                 // Labyrint
                 "labyrint-title": "Labyrint 3D/VR",
@@ -1459,7 +1764,7 @@
                 "tips-6-mean-li1": "Pokud vám generování videa nefunguje, není to chyba hry – je to ochrana vašeho zařízení.",
                 "tips-6-mean-li2": "Můžete to zkusit na výkonnějším telefonu, pokud ho máte k dispozici.",
                 
-                // FILTR (přidáno)
+                // FILTR
                 "filter-label": "🔍 Filtr podle skladby:",
                 "filter-all": "Všechny skladby",
                 "filter-loading": "Načítám..."
@@ -1511,6 +1816,7 @@
                 "beatshift-slogan": "Your music, Your game",
                 "beatshift-nav-leaderboards": "LEADERBOARDS",
                 "beatshift-nav-info": "ABOUT / DOWNLOAD",
+                "beatshift-nav-music": "🎵 FREE MUSIC",
                 "beatshift-diff-easy": "EASY",
                 "beatshift-diff-medium": "NORMAL",
                 "beatshift-diff-hard": "HARD",
@@ -1549,6 +1855,25 @@
                 "beatshift-btn-download": "DOWNLOAD APK",
                 "beatshift-version-label": "Version",
                 "beatshift-size-label": "Size",
+
+                // BeatShift – MUSIC
+                "music-intro": "BeatShift can process any custom MP3 you have on your phone. If you don't own any music, you can try these tracks – they are free to download and ready directly for the game.",
+                "music-howto-title": "📥 How it works",
+                "music-howto-1": "Download the MP3 by clicking the button on the track.",
+                "music-howto-2": "Save the downloaded MP3 on your phone – the Download folder is fine.",
+                "music-howto-3": "In the game, when selecting music, open the Download folder, find your song and select it.",
+                "music-howto-note": "The game will load it, generate obstacles based on it, and you can play. Nothing complicated – BeatShift will guide you through every step.",
+                "music-btn-play": "▶ PLAY",
+                "music-btn-pause": "⏸ PAUSE",
+                "music-btn-download": "⬇ DOWNLOAD MP3",
+                "music-tips-title": "💡 Tips",
+                "music-tip-1": "Want more music? Use your own MP3s from your phone – BeatShift handles them just as well.",
+                "music-tip-2": "Music too quiet? Check the volume on both your phone and in the game.",
+                "music-tip-3": "After finishing a level you can click \"Share score\" and upload your result to the leaderboard.",
+                "music-cta-title": "READY TO START?",
+                "music-cta-desc": "Downloaded the music? Now grab the game and get into the rhythm.",
+                "music-cta-btn": "DOWNLOAD BEATSHIFT VR",
+                "music-ai-note": "Music on this page is generated using AI tools.",
 
                 // Labyrint
                 "labyrint-title": "Labyrint 3D/VR",
@@ -1646,7 +1971,7 @@
                 "tips-6-mean-li1": "If video generation doesn't work for you, it's not a bug – it's protection for your device.",
                 "tips-6-mean-li2": "You can try it on a more powerful phone if you have one available.",
                 
-                // FILTR (přidáno)
+                // FILTR
                 "filter-label": "🔍 Filter by track:",
                 "filter-all": "All tracks",
                 "filter-loading": "Loading..."
@@ -1897,7 +2222,55 @@
         });
 
         // ==========================================
-        // ZMĚNA: LOGOVÁNÍ STAŽENÍ (pouze čas + hra)
+        // HUDERNÍ PŘEHRÁVAČ (NOVÉ)
+        // ==========================================
+
+        function togglePlay(btn, src) {
+            const player = document.getElementById('musicPlayer');
+            if (!player) return;
+
+            const isSameTrack = currentlyPlayingBtn === btn;
+
+            // Pokud hraje stejná skladba → pauza nebo pokračovat
+            if (isSameTrack) {
+                if (player.paused) {
+                    player.play();
+                    updatePlayBtn(btn, true);
+                } else {
+                    player.pause();
+                    updatePlayBtn(btn, false);
+                }
+                return;
+            }
+
+            // Pokud hraje jiná skladba, zastav ji
+            if (currentlyPlayingBtn && currentlyPlayingBtn !== btn) {
+                updatePlayBtn(currentlyPlayingBtn, false);
+            }
+
+            // Nastav novou skladbu
+            player.src = src;
+            player.play().catch(err => {
+                console.warn("Playback error:", err);
+            });
+            currentlyPlayingBtn = btn;
+            updatePlayBtn(btn, true);
+        }
+
+        function updatePlayBtn(btn, playing) {
+            if (!btn) return;
+            const key = playing ? 'music-btn-pause' : 'music-btn-play';
+            btn.setAttribute('data-key', key);
+            btn.innerText = translations[currentLang][key];
+            if (playing) {
+                btn.classList.add('playing');
+            } else {
+                btn.classList.remove('playing');
+            }
+        }
+
+        // ==========================================
+        // LOGOVÁNÍ STAŽENÍ
         // ==========================================
         const DOWNLOAD_STATS_URL = "https://script.google.com/macros/s/AKfycbxbm0X6wOi1YH-gGQsX6jmSzTfHfxAuXWuaxqCN6JG9LudCa5bbuOiCKhy4OqgjLlSUNA/exec";
 
@@ -1942,6 +2315,17 @@
 
             // Načíst data pro BeatShift (pro jistotu)
             loadData();
+
+            // Posluchač na dokončení skladby – vrátí tlačítko do stavu "PŘEHRÁT"
+            const player = document.getElementById('musicPlayer');
+            if (player) {
+                player.addEventListener('ended', function() {
+                    if (currentlyPlayingBtn) {
+                        updatePlayBtn(currentlyPlayingBtn, false);
+                        currentlyPlayingBtn = null;
+                    }
+                });
+            }
         });
     </script>
 
