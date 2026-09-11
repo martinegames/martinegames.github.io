@@ -73,7 +73,7 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "BeatShift VR",
-      "operatingSystem": "Android 7.0+",
+      "operatingSystem": "Android 8.0+",
       "applicationCategory": "GameApplication",
       "description": "Rytmická VR hra, která generuje úrovně podle vaší hudby. Zdarma ke stažení, s možností odemknout prémiové funkce v aplikaci."
     }
@@ -85,7 +85,7 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Labyrint 3D VR",
-      "operatingSystem": "Android 7.0+",
+      "operatingSystem": "Android 8.0+",
       "applicationCategory": "GameApplication",
       "description": "3D labyrint s VR podporou, multiplayer a 4 herní režimy. Zdarma ke stažení, s možností odemknout prémiové funkce v aplikaci."
     }
@@ -634,12 +634,46 @@
         .about-text h2:first-of-type {
             margin-top: 0;
         }
+        .about-text h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-blue);
+            margin-top: 25px;
+            font-size: 18px;
+        }
         .about-text p {
             margin: 12px 0;
+        }
+        .about-text ul {
+            color: #ccc;
+            padding-left: 20px;
+        }
+        .about-text ul li {
+            margin-bottom: 4px;
         }
         .about-text .highlight {
             color: var(--neon-pink);
             font-weight: bold;
+        }
+
+        /* --- TESTED NOTE (krátká poznámka v hrách) --- */
+        .tested-note {
+            margin: 25px 0;
+            padding: 15px 20px;
+            background: rgba(0, 255, 255, 0.05);
+            border-left: 4px solid var(--neon-blue);
+            border-radius: 10px;
+            color: #ccc;
+            font-size: 0.95em;
+        }
+        .tested-note-link {
+            color: var(--neon-blue);
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: underline;
+            transition: 0.3s;
+        }
+        .tested-note-link:hover {
+            color: var(--neon-pink);
         }
 
         /* --- MODAL --- */
@@ -1086,6 +1120,7 @@
                         <p data-key="home-p2">Kromě her sem postupně přidávám i užitečné návody – například <strong>jak si správně nastavit VR Box</strong>, aby zážitek z virtuální reality byl co nejlepší, nebo <strong>jak propojit Bluetooth ovladač pro Labyrint ve VR</strong>.</p>
                         <p data-key="home-p3">V menu (na počítači vlevo, na mobilu nahoře) si jednoduše vyber – rozklikni si libovolnou hru a prohlédni si žebříčky, stažení nebo detailní informace. Sekce <strong>"Tipy a triky"</strong> je připravená pro všechny, kdo chtějí z VR zařízení vytěžit maximum – od nastavení ostření až po opravu opotřebované pěnové podložky.</p>
                         <p data-key="home-p4">Pokud se chceš dozvědět víc o mně, klikni na <strong>"O mně"</strong>.</p>
+                        <p data-key="home-p5">Tuto stránku si můžeš nainstalovat přímo na plochu svého telefonu, tabletu nebo počítače – jako běžnou aplikaci. Nemusíš nic stahovat z obchodu a nepřijdeš o žádné nové hry a aplikace pro Android, které postupně vyvíjím a přidávám. Podrobný návod, jak na to, najdeš v sekci <strong>"Tipy a triky"</strong>.</p>
                     </div>
                 </section>
             </div>
@@ -1117,6 +1152,28 @@
 
                         <h2 data-key="about-what-title">Co tvořím</h2>
                         <p data-key="about-what-text">Zaměřuji se na menší, originální projekty, které jsou snadné na ovládání a dostupné každému. Moje hry neobsahují skryté funkce, sledování ani podvodné prvky.</p>
+
+                        <h2 data-key="about-tested-title">Na čem testuji</h2>
+                        <p data-key="about-tested-p1">Každou hru před vydáním testuji na telefonech, které mám doma – momentálně jich je 14. Nejsou to náhodné kusy. Snažím se, aby pokrývaly co nejvíc verzí Androidu a co nejvíc výrobců, protože každý výrobce si upravuje systém po svém. Co funguje na Samsungu, nemusí fungovat na Xiaomi – a naopak.</p>
+                        <p data-key="about-tested-p2">Na trhu jsou tisíce různých telefonů od desítek výrobců. Není v mých silách – ani v silách žádného malého vývojáře – mít doma všechny. Proto se soustředím na to, abych měl zastoupené různé generace Androidu a různé typy zařízení: od těch nejslabších až po vlajkové lodě.</p>
+                        <p><strong data-key="about-tested-list-title">Testováno na:</strong></p>
+                        <ul>
+                            <li><strong>Honor:</strong> 7A, 8A, 9, 10, 20, X6, 200</li>
+                            <li><strong>Samsung:</strong> Galaxy A8, S10e, S22 Plus</li>
+                            <li><strong>Motorola:</strong> Moto 05</li>
+                            <li><strong>Nokia:</strong> 5.1</li>
+                            <li><strong>Xiaomi:</strong> Redmi 6</li>
+                            <li><strong>Figi:</strong> Figi 1</li>
+                        </ul>
+                        <p data-key="about-tested-summary">To znamená, že hry jsou vyzkoušené na Androidu 8 až 16 – od entry-level modelů (Honor 7A) po vlajkové lodě (Galaxy S22 Plus).</p>
+
+                        <h3 data-key="about-tested-xiaomi-title">Poznámka k telefonům Xiaomi</h3>
+                        <p data-key="about-tested-xiaomi-p1">Novější modely Xiaomi (Redmi, Poco) mají systémová omezení, která mi neumožňují plné testování – jejich nadstavba MIUI/HyperOS se chová jinak než zbytek Androidu a klade vývojářům překážky, které se nedají snadno obejít. Otestovaný mám proto jen starší Redmi 6, na kterém hra funguje bez problémů.</p>
+                        <p data-key="about-tested-xiaomi-p2">To ale neznamená, že by hry na novějších Xiaomi nefungovaly. Spíš naopak – hry jsou psané v nativním kódu, takže by měly běžet i tam. Pokud máš Xiaomi a něco se pokazí, může to být právě kvůli agresivní správě paměti, kterou MIUI používá. Zkus v Nastavení → Aplikace → tvá hra vypnout „Úsporu baterie" a povolit „Autostart" – často to pomůže.</p>
+
+                        <h3 data-key="about-tested-mean-title">Co to znamená pro tebe</h3>
+                        <p data-key="about-tested-mean-p1">Pokud máš telefon, který v seznamu není, není to důvod k obavám. Hry jsou psané v nativním kódu, takže by měly fungovat i na zařízeních, která jsem neměl možnost vyzkoušet. Testování na 14 telefonech mi dává dobrý obrázek o tom, jak se hry chovají napříč systémem – ale není to záruka, že to půjde úplně všude.</p>
+                        <p data-key="about-tested-mean-p2">Kdyby se přesto něco pokazilo, napiš mi na martinegames@centrum.cz. Zkusím poradit, i když tvůj konkrétní telefon nemám a nemůžu chybu reprodukovat.</p>
 
                         <h2 data-key="about-firstgame-title">Moje první hra</h2>
                         <p data-key="about-firstgame-text">Moje úplně první hra, kterou jsem vytvořil od nuly, se jmenuje <strong>Labyrun</strong> a je dostupná na Google Play. Je to důkaz, že za projekty stojí skutečný tvůrce, ne anonymní podvodník. Labyrun je jednoduchá, čistá a bezpečná hra — první krok do světa mobilního vývoje.</p>
@@ -1195,10 +1252,15 @@
                             <div class="badge" data-key="beatshift-antivirus-badge">🛡️ PROVĚŘENO ANTIVIREM - 100% BEZPEČNÉ</div>
 
                             <h3 data-key="beatshift-tech-title">Technické specifikace</h3>
-                            <p><strong data-key="beatshift-tech-os">Podporované OS:</strong> <span data-key="beatshift-tech-os-text">Android 7.0 (Nougat) až Android 16.</span></p>
+                            <p><strong data-key="beatshift-tech-os">Podporované OS:</strong> <span data-key="beatshift-tech-os-text">Android 8.0 (Oreo) až Android 16.</span></p>
                             <p><strong data-key="beatshift-tech-control">Ovládání:</strong> <span data-key="beatshift-tech-control-text">Hra využívá Gyroskop vašeho telefonu.</span></p>
                             <p><strong data-key="beatshift-tech-modes">Režimy:</strong> <span data-key="beatshift-tech-modes-text">Plná podpora VR (Cardboard) i klasického režimu bez brýlí.</span></p>
                             <p><strong data-key="beatshift-tech-langs">Podporované jazyky:</strong> <span data-key="beatshift-tech-langs-text">Čeština, Angličtina, Němčina, Španělština, Francouzština, Polština, Portugalština, Brazilská portugalština, Slovenština, Ruština, Ukrajinština, Hindština, Indonéština, Vietnamština, Japonština, Korejština, Zjednodušená čínština.</span></p>
+
+                            <div class="tested-note">
+                                <span data-key="tested-note-1">Informace o telefonech, na kterých byly hry testovány, najdeš v sekci</span>
+                                <span class="tested-note-link" onclick="switchGame('about')" data-key="tested-note-2">O mně</span>.
+                            </div>
 
                             <h3 data-key="beatshift-safety-title">Bezpečnost a věk</h3>
                             <p data-key="beatshift-safety-age">Doporučený věk: 12+ (vzhledem k použití VR technologie a intenzivním vizuálním efektům).</p>
@@ -1347,10 +1409,15 @@
                             <div class="badge" data-key="labyrint-antivirus-badge">🛡️ PROVĚŘENO ANTIVIREM - 100% BEZPEČNÉ</div>
 
                             <h3 data-key="labyrint-tech-title">Technické specifikace</h3>
-                            <p><strong data-key="labyrint-tech-os">Podporované OS:</strong> <span data-key="labyrint-tech-os-text">Android 7.0 (Nougat) až Android 16.</span></p>
+                            <p><strong data-key="labyrint-tech-os">Podporované OS:</strong> <span data-key="labyrint-tech-os-text">Android 8.0 (Oreo) až Android 16.</span></p>
                             <p><strong data-key="labyrint-tech-control">Ovládání:</strong> <span data-key="labyrint-tech-control-text">Dotyk (levý/pravý prst) nebo Gamepad pro VR.</span></p>
                             <p><strong data-key="labyrint-tech-modes">Režimy:</strong> <span data-key="labyrint-tech-modes-text">Závod, Plížení, Hledání pokladů, Multiplayer přes Bluetooth.</span></p>
                             <p><strong data-key="labyrint-tech-langs">Podporované jazyky:</strong> <span data-key="labyrint-tech-langs-text">Čeština, Angličtina, Němčina, Španělština, Francouzština, Polština, Portugalština, Brazilská portugalština, Slovenština, Ruština, Ukrajinština, Hindština, Indonéština, Vietnamština, Japonština, Korejština, Zjednodušená čínština.</span></p>
+
+                            <div class="tested-note">
+                                <span data-key="tested-note-1">Informace o telefonech, na kterých byly hry testovány, najdeš v sekci</span>
+                                <span class="tested-note-link" onclick="switchGame('about')" data-key="tested-note-2">O mně</span>.
+                            </div>
 
                             <h3 data-key="labyrint-safety-title">Bezpečnost a věk</h3>
                             <p data-key="labyrint-safety-age">Doporučený věk: 12+ (vzhledem k použití VR technologie a intenzivním vizuálním efektům).</p>
@@ -1522,6 +1589,20 @@
                             </ul>
                         </div>
 
+                        <!-- TIP 7 (NOVÝ) -->
+                        <div class="tip-card">
+                            <h3 data-key="tips-7-title">7. Jak si nainstalovat stránku na plochu zařízení</h3>
+                            <p data-key="tips-7-p1">Tuto stránku si můžeš nainstalovat přímo na plochu svého telefonu, tabletu nebo počítače – jako běžnou aplikaci. Nemusíš nic stahovat z obchodu a nepřijdeš o žádné nové hry a aplikace pro Android, které postupně vyvíjím a přidávám.</p>
+                            <p data-key="tips-7-p2">Postup se liší podle prohlížeče, který používáš:</p>
+                            <ul>
+                                <li data-key="tips-7-li-chrome"><strong>Google Chrome (Android i počítač):</strong> Klepni na tři tečky vpravo nahoře → zvol „Přidat na plochu" nebo „Instalovat aplikaci".</li>
+                                <li data-key="tips-7-li-safari"><strong>Safari (iPhone/iPad):</strong> Klepni na tlačítko Sdílet (čtvereček se šipkou) → zvol „Přidat na plochu".</li>
+                                <li data-key="tips-7-li-firefox"><strong>Firefox (Android):</strong> Klepni na tři tečky vpravo nahoře → zvol „Instalovat".</li>
+                                <li data-key="tips-7-li-edge"><strong>Microsoft Edge (počítač):</strong> Klepni na tři tečky vpravo nahoře → Aplikace → „Nainstalovat tuto stránku jako aplikaci".</li>
+                            </ul>
+                            <p data-key="tips-7-p3">Po instalaci se na ploše objeví ikonka, která se chová stejně jako běžná aplikace. Otevřeš ji jedním klepnutím a máš všechny hry, návody i novinky vždy po ruce.</p>
+                        </div>
+
                     </div>
                 </section>
             </div>
@@ -1579,6 +1660,7 @@
                 "home-p2": "Kromě her sem postupně přidávám i užitečné návody – například jak si správně nastavit VR Box, aby zážitek z virtuální reality byl co nejlepší, nebo jak propojit Bluetooth ovladač pro Labyrint ve VR.",
                 "home-p3": "V menu (na počítači vlevo, na mobilu nahoře) si jednoduše vyber – rozklikni si libovolnou hru a prohlédni si žebříčky, stažení nebo detailní informace. Sekce \"Tipy a triky\" je připravená pro všechny, kdo chtějí z VR zařízení vytěžit maximum – od nastavení ostření až po opravu opotřebované pěnové podložky.",
                 "home-p4": "Pokud se chceš dozvědět víc o mně, klikni na \"O mně\".",
+                "home-p5": "Tuto stránku si můžeš nainstalovat přímo na plochu svého telefonu, tabletu nebo počítače – jako běžnou aplikaci. Nemusíš nic stahovat z obchodu a nepřijdeš o žádné nové hry a aplikace pro Android, které postupně vyvíjím a přidávám. Podrobný návod, jak na to, najdeš v sekci \"Tipy a triky\".",
 
                 // About
                 "about-title": "O mně",
@@ -1591,6 +1673,20 @@
                 "about-how-text": "Hry tvořím po práci ve svém volném čase. Každý projekt vzniká postupně — od prvního nápadu, přes grafiku, až po samotné programování.",
                 "about-what-title": "Co tvořím",
                 "about-what-text": "Zaměřuji se na menší, originální projekty, které jsou snadné na ovládání a dostupné každému. Moje hry neobsahují skryté funkce, sledování ani podvodné prvky.",
+
+                // About – Tested
+                "about-tested-title": "Na čem testuji",
+                "about-tested-p1": "Každou hru před vydáním testuji na telefonech, které mám doma – momentálně jich je 14. Nejsou to náhodné kusy. Snažím se, aby pokrývaly co nejvíc verzí Androidu a co nejvíc výrobců, protože každý výrobce si upravuje systém po svém. Co funguje na Samsungu, nemusí fungovat na Xiaomi – a naopak.",
+                "about-tested-p2": "Na trhu jsou tisíce různých telefonů od desítek výrobců. Není v mých silách – ani v silách žádného malého vývojáře – mít doma všechny. Proto se soustředím na to, abych měl zastoupené různé generace Androidu a různé typy zařízení: od těch nejslabších až po vlajkové lodě.",
+                "about-tested-list-title": "Testováno na:",
+                "about-tested-summary": "To znamená, že hry jsou vyzkoušené na Androidu 8 až 16 – od entry-level modelů (Honor 7A) po vlajkové lodě (Galaxy S22 Plus).",
+                "about-tested-xiaomi-title": "Poznámka k telefonům Xiaomi",
+                "about-tested-xiaomi-p1": "Novější modely Xiaomi (Redmi, Poco) mají systémová omezení, která mi neumožňují plné testování – jejich nadstavba MIUI/HyperOS se chová jinak než zbytek Androidu a klade vývojářům překážky, které se nedají snadno obejít. Otestovaný mám proto jen starší Redmi 6, na kterém hra funguje bez problémů.",
+                "about-tested-xiaomi-p2": "To ale neznamená, že by hry na novějších Xiaomi nefungovaly. Spíš naopak – hry jsou psané v nativním kódu, takže by měly běžet i tam. Pokud máš Xiaomi a něco se pokazí, může to být právě kvůli agresivní správě paměti, kterou MIUI používá. Zkus v Nastavení → Aplikace → tvá hra vypnout „Úsporu baterie\" a povolit „Autostart\" – často to pomůže.",
+                "about-tested-mean-title": "Co to znamená pro tebe",
+                "about-tested-mean-p1": "Pokud máš telefon, který v seznamu není, není to důvod k obavám. Hry jsou psané v nativním kódu, takže by měly fungovat i na zařízeních, která jsem neměl možnost vyzkoušet. Testování na 14 telefonech mi dává dobrý obrázek o tom, jak se hry chovají napříč systémem – ale není to záruka, že to půjde úplně všude.",
+                "about-tested-mean-p2": "Kdyby se přesto něco pokazilo, napiš mi na martinegames@centrum.cz. Zkusím poradit, i když tvůj konkrétní telefon nemám a nemůžu chybu reprodukovat.",
+
                 "about-firstgame-title": "Moje první hra",
                 "about-firstgame-text": "Moje úplně první hra, kterou jsem vytvořil od nuly, se jmenuje Labyrun a je dostupná na Google Play. Je to důkaz, že za projekty stojí skutečný tvůrce, ne anonymní podvodník. Labyrun je jednoduchá, čistá a bezpečná hra — první krok do světa mobilního vývoje.",
                 "about-why-not-play-title": "Proč už nepublikuji na Google Play",
@@ -1616,7 +1712,7 @@
                 "beatshift-antivirus-badge": "🛡️ PROVĚŘENO ANTIVIREM - 100% BEZPEČNÉ",
                 "beatshift-tech-title": "Technické specifikace",
                 "beatshift-tech-os": "Podporované OS:",
-                "beatshift-tech-os-text": "Android 7.0 (Nougat) až Android 16.",
+                "beatshift-tech-os-text": "Android 8.0 (Oreo) až Android 16.",
                 "beatshift-tech-control": "Ovládání:",
                 "beatshift-tech-control-text": "Hra využívá Gyroskop vašeho telefonu.",
                 "beatshift-tech-modes": "Režimy:",
@@ -1649,6 +1745,10 @@
                 "beatshift-version-label": "Verze",
                 "beatshift-size-label": "Velikost",
 
+                // TESTED NOTE (krátká poznámka v hrách)
+                "tested-note-1": "Informace o telefonech, na kterých byly hry testovány, najdeš v sekci",
+                "tested-note-2": "O mně",
+
                 // BeatShift – HUDBA
                 "music-intro": "BeatShift umí zpracovat jakoukoli vlastní MP3, kterou máš v telefonu. Pokud ale žádnou hudbu nevlastníš, můžeš si vyzkoušet tyto skladby – jsou volně ke stažení a připravené přímo pro hru.",
                 "music-howto-title": "📥 Jak to funguje",
@@ -1675,7 +1775,7 @@
                 "labyrint-antivirus-badge": "🛡️ PROVĚŘENO ANTIVIREM - 100% BEZPEČNÉ",
                 "labyrint-tech-title": "Technické specifikace",
                 "labyrint-tech-os": "Podporované OS:",
-                "labyrint-tech-os-text": "Android 7.0 (Nougat) až Android 16.",
+                "labyrint-tech-os-text": "Android 8.0 (Oreo) až Android 16.",
                 "labyrint-tech-control": "Ovládání:",
                 "labyrint-tech-control-text": "Dotyk (levý/pravý prst) nebo Gamepad pro VR.",
                 "labyrint-tech-modes": "Režimy:",
@@ -1763,6 +1863,16 @@
                 "tips-6-mean-title": "Co to znamená pro vás?",
                 "tips-6-mean-li1": "Pokud vám generování videa nefunguje, není to chyba hry – je to ochrana vašeho zařízení.",
                 "tips-6-mean-li2": "Můžete to zkusit na výkonnějším telefonu, pokud ho máte k dispozici.",
+
+                // TIP 7 (NOVÝ)
+                "tips-7-title": "7. Jak si nainstalovat stránku na plochu zařízení",
+                "tips-7-p1": "Tuto stránku si můžeš nainstalovat přímo na plochu svého telefonu, tabletu nebo počítače – jako běžnou aplikaci. Nemusíš nic stahovat z obchodu a nepřijdeš o žádné nové hry a aplikace pro Android, které postupně vyvíjím a přidávám.",
+                "tips-7-p2": "Postup se liší podle prohlížeče, který používáš:",
+                "tips-7-li-chrome": "Google Chrome (Android i počítač): Klepni na tři tečky vpravo nahoře → zvol „Přidat na plochu\" nebo „Instalovat aplikaci\".",
+                "tips-7-li-safari": "Safari (iPhone/iPad): Klepni na tlačítko Sdílet (čtvereček se šipkou) → zvol „Přidat na plochu\".",
+                "tips-7-li-firefox": "Firefox (Android): Klepni na tři tečky vpravo nahoře → zvol „Instalovat\".",
+                "tips-7-li-edge": "Microsoft Edge (počítač): Klepni na tři tečky vpravo nahoře → Aplikace → „Nainstalovat tuto stránku jako aplikaci\".",
+                "tips-7-p3": "Po instalaci se na ploše objeví ikonka, která se chová stejně jako běžná aplikace. Otevřeš ji jedním klepnutím a máš všechny hry, návody i novinky vždy po ruce.",
                 
                 // FILTR
                 "filter-label": "🔍 Filtr podle skladby:",
@@ -1786,6 +1896,7 @@
                 "home-p2": "Besides games, I gradually add useful guides – for example how to properly set up your VR Box for the best virtual reality experience, or how to connect a Bluetooth controller for Labyrint in VR.",
                 "home-p3": "Simply choose from the menu (on the left on desktop, on top on mobile) – click on any game to view leaderboards, download, or detailed information. The Tips & Tricks section is ready for everyone who wants to get the most out of their VR device – from focus adjustment to repairing worn-out foam padding.",
                 "home-p4": "If you want to learn more about me, click on About Me.",
+                "home-p5": "You can install this page directly on your phone, tablet, or computer home screen – like a regular app. You don't need to download anything from a store and you won't miss any new games and Android apps I'm gradually developing and adding. A detailed guide on how to do it can be found in the \"Tips & Tricks\" section.",
 
                 // About
                 "about-title": "About Me",
@@ -1798,6 +1909,20 @@
                 "about-how-text": "I work on games in my free time after my day job. Each project grows step by step — from the first spark of an idea, through graphics, to the actual coding.",
                 "about-what-title": "What I create",
                 "about-what-text": "I focus on smaller, original projects that are easy to control and accessible to everyone. My games have no hidden features, tracking, or deceptive elements.",
+
+                // About – Tested
+                "about-tested-title": "What I test on",
+                "about-tested-p1": "I test every game before release on phones I own – currently 14 of them. They're not random picks. I try to cover as many Android versions and as many manufacturers as possible, because every manufacturer tweaks the system in its own way. What works on Samsung may not work on Xiaomi – and vice versa.",
+                "about-tested-p2": "There are thousands of different phones from dozens of manufacturers on the market. It's not in my power – nor in the power of any small developer – to own them all. So I focus on covering different Android generations and different device types: from the weakest ones up to flagship models.",
+                "about-tested-list-title": "Tested on:",
+                "about-tested-summary": "This means the games have been tested on Android 8 through 16 – from entry-level models (Honor 7A) to flagship devices (Galaxy S22 Plus).",
+                "about-tested-xiaomi-title": "A note on Xiaomi phones",
+                "about-tested-xiaomi-p1": "Newer Xiaomi models (Redmi, Poco) have system limitations that don't allow me to fully test them – their MIUI/HyperOS skin behaves differently from the rest of Android and puts obstacles in front of developers that can't be easily bypassed. That's why I only have the older Redmi 6 tested, where the game runs without issues.",
+                "about-tested-xiaomi-p2": "But that doesn't mean the games won't work on newer Xiaomi phones. Quite the opposite – the games are written in native code, so they should run there too. If you have a Xiaomi and something goes wrong, it might be due to the aggressive memory management MIUI uses. Try turning off \"Battery saver\" and enabling \"Autostart\" in Settings → Apps → your game – it often helps.",
+                "about-tested-mean-title": "What this means for you",
+                "about-tested-mean-p1": "If you have a phone that's not on the list, there's no reason to worry. The games are written in native code, so they should work on devices I haven't been able to test. Testing on 14 phones gives me a good picture of how the games behave across the system – but it's not a guarantee that everything will work everywhere.",
+                "about-tested-mean-p2": "If something does go wrong, write to me at martinegames@centrum.cz. I'll try to help, even if I don't have your specific phone and can't reproduce the issue.",
+
                 "about-firstgame-title": "My first game",
                 "about-firstgame-text": "My very first game built from scratch is called Labyrun and it's available on Google Play. It proves that there's a real person behind the projects, not an anonymous scammer. Labyrun is simple, clean, and safe — the first step into the world of mobile development.",
                 "about-why-not-play-title": "Why I no longer publish on Google Play",
@@ -1823,7 +1948,7 @@
                 "beatshift-antivirus-badge": "🛡️ ANTIVIRUS VERIFIED - 100% SAFE",
                 "beatshift-tech-title": "Technical Specifications",
                 "beatshift-tech-os": "Supported OS:",
-                "beatshift-tech-os-text": "Android 7.0 (Nougat) up to Android 16.",
+                "beatshift-tech-os-text": "Android 8.0 (Oreo) up to Android 16.",
                 "beatshift-tech-control": "Control:",
                 "beatshift-tech-control-text": "The game uses your phone's Gyroscope.",
                 "beatshift-tech-modes": "Modes:",
@@ -1856,6 +1981,10 @@
                 "beatshift-version-label": "Version",
                 "beatshift-size-label": "Size",
 
+                // TESTED NOTE
+                "tested-note-1": "Information about the phones on which the games were tested can be found in the",
+                "tested-note-2": "About Me",
+
                 // BeatShift – MUSIC
                 "music-intro": "BeatShift can process any custom MP3 you have on your phone. If you don't own any music, you can try these tracks – they are free to download and ready directly for the game.",
                 "music-howto-title": "📥 How it works",
@@ -1882,7 +2011,7 @@
                 "labyrint-antivirus-badge": "🛡️ ANTIVIRUS VERIFIED - 100% SAFE",
                 "labyrint-tech-title": "Technical Specifications",
                 "labyrint-tech-os": "Supported OS:",
-                "labyrint-tech-os-text": "Android 7.0 (Nougat) up to Android 16.",
+                "labyrint-tech-os-text": "Android 8.0 (Oreo) up to Android 16.",
                 "labyrint-tech-control": "Control:",
                 "labyrint-tech-control-text": "Touch (left/right finger) or Gamepad for VR.",
                 "labyrint-tech-modes": "Modes:",
@@ -1970,6 +2099,17 @@
                 "tips-6-mean-title": "What does this mean for you?",
                 "tips-6-mean-li1": "If video generation doesn't work for you, it's not a bug – it's protection for your device.",
                 "tips-6-mean-li2": "You can try it on a more powerful phone if you have one available.",
+
+                // TIP 7 (NEW)
+                "tips-7-title": "7. How to install the page on your device's home screen",
+                "tips-7-p1": "You can install this page directly on your phone, tablet, or computer home screen – like a regular app. You don't need to download anything from a store and you won't miss any new games and Android apps I'm gradually developing and adding.",
+                "tips-7-p2": "The procedure differs depending on which browser you use:",
+                "tips-7-li-chrome": "Google Chrome (Android and PC): Tap the three dots in the top right → select \"Add to Home screen\" or \"Install app\".",
+                "tips-7-li-safari": "Safari (iPhone/iPad): Tap the Share button (square with arrow) → select \"Add to Home Screen\".",
+                "tips-7-li-firefox": "Firefox (Android): Tap the three dots in the top right → select \"Install\".",
+                "tips-7-li-edge": "Microsoft Edge (PC): Tap the three dots in the top right → Apps → \"Install this site as an app\".",
+
+                "tips-7-p3": "After installation, an icon appears on your home screen that behaves just like a regular app. Open it with one tap and you'll always have all games, guides, and news at your fingertips.",
                 
                 // FILTR
                 "filter-label": "🔍 Filter by track:",
